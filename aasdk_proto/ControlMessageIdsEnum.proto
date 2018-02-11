@@ -1,0 +1,46 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+package f1x.aasdk.proto.ids;
+
+message ControlMessage
+{
+    enum Enum
+    {
+        NONE = 0x0000;
+        VERSION_REQUEST = 0x0001;
+        VERSION_RESPONSE = 0x0002;
+        SSL_HANDSHAKE = 0x0003;
+        AUTH_COMPLETE = 0x0004;
+        SERVICE_DISCOVERY_REQUEST = 0x0005;
+        SERVICE_DISCOVERY_RESPONSE = 0x0006;
+        CHANNEL_OPEN_REQUEST = 0x0007;
+        CHANNEL_OPEN_RESPONSE = 0x0008;
+        PING_REQUEST = 0x000b;
+        PING_RESPONSE = 0x000c;
+        NAVIGATION_FOCUS_REQUEST = 0x000d;
+        NAVIGATION_FOCUS_RESPONSE = 0x000e;
+        SHUTDOWN_REQUEST = 0x000f;
+        SHUTDOWN_RESPONSE = 0x0010;
+        VOICE_SESSION_REQUEST = 0x0011;
+        AUDIO_FOCUS_REQUEST = 0x0012;
+        AUDIO_FOCUS_RESPONSE = 0x0013;
+    }
+}

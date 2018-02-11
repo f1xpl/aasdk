@@ -1,0 +1,39 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+package f1x.aasdk.proto.ids;
+
+message AVChannelMessage
+{
+    enum Enum
+    {
+        AV_MEDIA_WITH_TIMESTAMP_INDICATION = 0x0000;
+	AV_MEDIA_INDICATION = 0x0001;
+        SETUP_REQUEST = 0x8000;
+        START_INDICATION = 0x8001;
+        STOP_INDICATION = 0x8002;
+        SETUP_RESPONSE = 0x8003;
+        AV_MEDIA_ACK_INDICATION = 0x8004;
+        AV_INPUT_OPEN_REQUEST = 0x8005;
+        AV_INPUT_OPEN_RESPONSE = 0x8006;
+        VIDEO_FOCUS_REQUEST = 0x8007;
+        VIDEO_FOCUS_INDICATION = 0x8008;
+    }
+}

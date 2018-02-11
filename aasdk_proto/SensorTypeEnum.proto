@@ -1,0 +1,50 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+package f1x.aasdk.proto.enums;
+
+message SensorType
+{
+    enum Enum
+    {
+        NONE = 0;
+        LOCATION = 1;
+        COMPASS = 2;
+        CAR_SPEED = 3;
+        RPM = 4;
+        ODOMETER = 5;
+        FUEL_LEVEL = 6;
+        PARKING_BRAKE = 7;
+        GEAR = 8;
+        DIAGNOSTICS = 9;
+        NIGHT_DATA = 10;
+        ENVIRONMENT = 11;
+        HVAC = 12;
+        DRIVING_STATUS = 13;
+        DEAD_RECONING = 14;
+        PASSENGER = 15;
+        DOOR = 16;
+        LIGHT = 17;
+        TIRE = 18;
+        ACCEL = 19;
+        GYRO = 20;
+        GPS = 21;
+    }
+}

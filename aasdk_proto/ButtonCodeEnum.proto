@@ -1,0 +1,47 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+package f1x.aasdk.proto.enums;
+
+message ButtonCode
+{
+    enum Enum
+    {
+        NONE = 0x00;
+        MICROPHONE_2 = 0x01;
+        MENU = 0x02;
+        HOME = 0x03;
+        BACK = 0x04;
+        PHONE = 0x05;
+        CALL_END = 0x06;
+        UP = 0x13;
+        DOWN = 0x14;
+        LEFT = 0x15;
+        RIGHT = 0x16;
+        ENTER = 0x17;
+        MICROPHONE_1 = 0x54;
+        TOGGLE_PLAY = 0x55;
+        NEXT = 0x57;
+        PREV = 0x58;
+        PLAY = 0x7E;
+        PAUSE = 0x7F;
+        SCROLL_WHEEL = 65536;
+    }
+}

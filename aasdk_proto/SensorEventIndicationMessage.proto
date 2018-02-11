@@ -1,0 +1,64 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+import "GPSLocationData.proto";
+import "CompassData.proto";
+import "SpeedData.proto";
+import "RPMData.proto";
+import "OdometerData.proto";
+import "FuelLevelData.proto";
+import "ParkingBrakeData.proto";
+import "GearData.proto";
+import "DiagnosticsData.proto";
+import "NightModeData.proto";
+import "EnvironmentData.proto";
+import "HVACData.proto";
+import "DrivingStatusData.proto";
+import "SteeringWheelData.proto";
+import "PassengerData.proto";
+import "DoorData.proto";
+import "LightData.proto";
+import "AccelData.proto";
+import "GyroData.proto";
+
+package f1x.aasdk.proto.messages;
+
+message SensorEventIndication
+{
+    repeated data.GPSLocation gps_location = 1;
+    repeated data.Compass compass = 2;
+    repeated data.Speed speed = 3;
+    repeated data.RPM rpm = 4;
+    repeated data.Odometer odometer = 5;
+    repeated data.FuelLevel fuel_level = 6;
+    repeated data.ParkingBrake parking_brake = 7;
+    repeated data.Gear gear = 8;
+    repeated data.Diagnostics diagnostics = 9;
+    repeated data.NightMode night_mode = 10;
+    repeated data.Environment enviorment = 11;
+    repeated data.HVAC hvac = 12;
+    repeated data.DrivingStatus driving_status = 13;
+    repeated data.SteeringWheel steering_wheel = 14;
+    repeated data.Passenger passenger = 15;
+    repeated data.Door door = 16;
+    repeated data.Light light = 17;
+    repeated data.Accel accel = 19;
+    repeated data.Gyro gyro = 20;
+}

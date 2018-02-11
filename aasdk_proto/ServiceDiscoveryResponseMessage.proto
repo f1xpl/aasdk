@@ -1,0 +1,39 @@
+/*
+*  This file is part of aasdk library project.
+*  Copyright (C) 2018 f1x.studio (Michal Szwaj)
+*
+*  aasdk is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 3 of the License, or
+*  (at your option) any later version.
+
+*  aasdk is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax="proto3";
+
+import "ChannelDescriptorData.proto";
+
+package f1x.aasdk.proto.messages;
+
+message ServiceDiscoveryResponse
+{
+    repeated data.ChannelDescriptor channels = 1;
+    string head_unit_name = 2;
+    string car_model = 3;
+    string car_year = 4;
+    string car_serial = 5;
+    bool left_hand_drive_vehicle = 6;
+    string headunit_manufacturer = 7;
+    string headunit_model = 8;
+    string sw_build = 9;
+    string sw_version = 10;
+    bool can_play_native_media_during_vr = 11;
+    bool hide_clock = 12;
+}

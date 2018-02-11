@@ -1,3 +1,4 @@
+
 # aasdk
 
 ### Support project
@@ -26,7 +27,16 @@ C++ object-oriented library containing implementation of core AndroidAuto(tm) fu
 
 ### License
 GNU GPLv3
+
 Copyrights (c) 2018 f1x.studio (Michal Szwaj)
- 
+
 *Android auto is registered trademark of Google Inc.*
+
+### Used software
+ - [Boost libraries](http://www.boost.org/)
+ - [libusb](http://libusb.info/)
+ - [CMake](https://cmake.org/)
+ - [Protocol buffers](https://developers.google.com/protocol-buffers/)
+ - [OpenSSL](https://www.openssl.org/)
+ - [Google test framework](https://github.com/google/googletest)
 

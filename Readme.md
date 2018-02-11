@@ -30,7 +30,7 @@ GNU GPLv3
 
 Copyrights (c) 2018 f1x.studio (Michal Szwaj)
 
-*Android auto is registered trademark of Google Inc.*
+*AndroidAuto is registered trademark of Google Inc.*
 
 ### Used software
  - [Boost libraries](http://www.boost.org/)

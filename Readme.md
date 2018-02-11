@@ -1,7 +1,7 @@
 # aasdk
 
 ### Support project
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](michal.szwaj@o2.pl)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9YH2QCXZ3YZXJ)
 
 ### Brief description
 C++ object-oriented library containing implementation of core AndroidAuto(tm) functionalities needed to build headunit software.

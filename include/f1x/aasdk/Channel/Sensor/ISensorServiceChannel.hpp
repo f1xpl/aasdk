@@ -44,7 +44,7 @@ public:
     virtual ~ISensorServiceChannel() = default;
 
     virtual void receive(ISensorServiceChannelEventHandler::Pointer eventHandler) = 0;
-    virtual messenger::ChannelId getId() = 0;
+    virtual messenger::ChannelId getId() const = 0;
     virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) = 0;
     virtual void sendSensorEventIndication(const proto::messages::SensorEventIndication& indication, SendPromise::Pointer promise) = 0;
     virtual void sendSensorStartResponse(const proto::messages::SensorStartResponseMessage& response, SendPromise::Pointer promise) = 0;

@@ -49,7 +49,7 @@ public:
     virtual void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) = 0;
     virtual void sendAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::Data& data, SendPromise::Pointer promise) = 0;
     virtual void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, SendPromise::Pointer promise) = 0;
-    virtual messenger::ChannelId getId() = 0;
+    virtual messenger::ChannelId getId() const = 0;
 };
 
 }

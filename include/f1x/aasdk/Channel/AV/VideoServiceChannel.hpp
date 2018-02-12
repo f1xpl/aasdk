@@ -40,7 +40,7 @@ public:
     void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) override;
     void sendVideoFocusIndication(const proto::messages::VideoFocusIndication& indication, SendPromise::Pointer promise) override;
     void sendAVMediaAckIndication(const proto::messages::AVMediaAckIndication& indication, SendPromise::Pointer promise) override;
-    messenger::ChannelId getId() override;
+    messenger::ChannelId getId() const override;
 
 private:
     using std::enable_shared_from_this<VideoServiceChannel>::shared_from_this;

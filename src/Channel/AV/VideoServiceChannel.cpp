@@ -47,7 +47,7 @@ void VideoServiceChannel::receive(IVideoServiceChannelEventHandler::Pointer even
     messenger_->enqueueReceive(channelId_, std::move(receivePromise));
 }
 
-messenger::ChannelId VideoServiceChannel::getId()
+messenger::ChannelId VideoServiceChannel::getId() const
 {
     return channelId_;
 }

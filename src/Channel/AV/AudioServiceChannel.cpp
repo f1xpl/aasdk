@@ -46,7 +46,7 @@ void AudioServiceChannel::receive(IAudioServiceChannelEventHandler::Pointer even
     messenger_->enqueueReceive(channelId_, std::move(receivePromise));
 }
 
-messenger::ChannelId AudioServiceChannel::getId()
+messenger::ChannelId AudioServiceChannel::getId() const
 {
     return channelId_;
 }

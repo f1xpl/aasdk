@@ -42,7 +42,7 @@ public:
     void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) override;
     void sendAVInputOpenResponse(const proto::messages::AVInputOpenResponse& response, SendPromise::Pointer promise) override;
     void sendAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::Data& data, SendPromise::Pointer promise) override;
-    messenger::ChannelId getId() override;
+    messenger::ChannelId getId() const override;
 
 private:
     using std::enable_shared_from_this<AVInputServiceChannel>::shared_from_this;

@@ -49,7 +49,7 @@ public:
     virtual void sendAVChannelSetupResponse(const proto::messages::AVChannelSetupResponse& response, SendPromise::Pointer promise) = 0;
     virtual void sendVideoFocusIndication(const proto::messages::VideoFocusIndication& indication, SendPromise::Pointer promise) = 0;
     virtual void sendAVMediaAckIndication(const proto::messages::AVMediaAckIndication& indication, SendPromise::Pointer promise) = 0;
-    virtual messenger::ChannelId getId() = 0;
+    virtual messenger::ChannelId getId() const = 0;
 };
 
 }

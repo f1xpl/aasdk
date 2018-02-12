@@ -47,7 +47,7 @@ void InputServiceChannel::receive(IInputServiceChannelEventHandler::Pointer even
     messenger_->enqueueReceive(channelId_, std::move(receivePromise));
 }
 
-messenger::ChannelId InputServiceChannel::getId()
+messenger::ChannelId InputServiceChannel::getId() const
 {
     return channelId_;
 }

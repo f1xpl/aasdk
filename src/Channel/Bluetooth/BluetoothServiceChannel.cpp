@@ -47,7 +47,7 @@ void BluetoothServiceChannel::receive(IBluetoothServiceChannelEventHandler::Poin
     messenger_->enqueueReceive(channelId_, std::move(receivePromise));
 }
 
-messenger::ChannelId BluetoothServiceChannel::getId()
+messenger::ChannelId BluetoothServiceChannel::getId() const
 {
     return channelId_;
 }

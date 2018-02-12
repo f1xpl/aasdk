@@ -36,7 +36,7 @@ public:
     SensorServiceChannel(boost::asio::io_service::strand& strand, messenger::IMessenger::Pointer messenger);
 
     void receive(ISensorServiceChannelEventHandler::Pointer eventHandler) override;
-    messenger::ChannelId getId() override;
+    messenger::ChannelId getId() const override;
     void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
     void sendSensorEventIndication(const proto::messages::SensorEventIndication& indication, SendPromise::Pointer promise) override;
     void sendSensorStartResponse(const proto::messages::SensorStartResponseMessage& response, SendPromise::Pointer promise) override;

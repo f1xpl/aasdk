@@ -65,7 +65,7 @@ void AVInputServiceChannel::sendAVChannelSetupResponse(const proto::messages::AV
     this->send(std::move(message), std::move(promise));
 }
 
-messenger::ChannelId AVInputServiceChannel::getId()
+messenger::ChannelId AVInputServiceChannel::getId() const
 {
     return channelId_;
 }

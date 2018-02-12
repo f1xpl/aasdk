@@ -48,7 +48,7 @@ public:
     virtual void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) = 0;
     virtual void sendInputEventIndication(const proto::messages::InputEventIndication& indication, SendPromise::Pointer promise) = 0;
     virtual void sendBindingResponse(const proto::messages::BindingResponse& response, SendPromise::Pointer promise) = 0;
-    virtual messenger::ChannelId getId() = 0;
+    virtual messenger::ChannelId getId() const = 0;
 };
 
 }

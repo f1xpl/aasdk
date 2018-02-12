@@ -39,7 +39,7 @@ class InputServiceChannel: public IInputServiceChannel, public ServiceChannel, p
     void sendChannelOpenResponse(const proto::messages::ChannelOpenResponse& response, SendPromise::Pointer promise) override;
     void sendInputEventIndication(const proto::messages::InputEventIndication& indication, SendPromise::Pointer promise) override;
     void sendBindingResponse(const proto::messages::BindingResponse& response, SendPromise::Pointer promise) override;
-    messenger::ChannelId getId() override;
+    messenger::ChannelId getId() const override;
 
 private:
     using std::enable_shared_from_this<InputServiceChannel>::shared_from_this;

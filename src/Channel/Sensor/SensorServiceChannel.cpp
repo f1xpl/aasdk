@@ -47,7 +47,7 @@ void SensorServiceChannel::receive(ISensorServiceChannelEventHandler::Pointer ev
     messenger_->enqueueReceive(channelId_, std::move(receivePromise));
 }
 
-messenger::ChannelId SensorServiceChannel::getId()
+messenger::ChannelId SensorServiceChannel::getId() const
 {
     return channelId_;
 }

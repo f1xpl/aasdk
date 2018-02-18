@@ -25,7 +25,10 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
-include(ExternalGtest)
+if(AASDK_TEST)
+    include(ExternalGtest)
+endif(AASDK_TEST)
+
 add_subdirectory(aasdk_proto)
 
 find_package(Boost REQUIRED COMPONENTS system log OPTIONAL_COMPONENTS unit_test_framework)
@@ -64,18 +67,20 @@ target_link_libraries(aasdk
                         ssl
                         crypto)
 
-add_executable(aasdk_ut EXCLUDE_FROM_ALL
-                ${tests_source_files}
-                ${tests_include_files})
+if(AASDK_TEST)
+    add_executable(aasdk_ut
+                    ${tests_source_files}
+                    ${tests_include_files})
 
-add_dependencies(aasdk_ut aasdk)
-target_link_libraries(aasdk_ut
-                        aasdk
-                        ${GMOCK_LIBRARY_PATH}
-                        ${GTEST_LIBRARY_PATH})
+    add_dependencies(aasdk_ut aasdk)
+    target_link_libraries(aasdk_ut
+                            aasdk
+                            ${GMOCK_LIBRARY_PATH}
+                            ${GTEST_LIBRARY_PATH})
 
-if(CODE_COVERAGE)
-    include(CodeCoverage)
-    append_coverage_compiler_flags()
-    setup_target_for_coverage(NAME aasdk_coverage EXECUTABLE aasdk_ut DEPENDENCIES aasdk_ut)
-endif(CODE_COVERAGE)
+    if(AASDK_CODE_COVERAGE)
+        include(CodeCoverage)
+        append_coverage_compiler_flags()
+        setup_target_for_coverage(NAME aasdk_coverage EXECUTABLE aasdk_ut DEPENDENCIES aasdk_ut)
+    endif(AASDK_CODE_COVERAGE)
+endif(AASDK_TEST)

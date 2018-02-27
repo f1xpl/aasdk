@@ -19,6 +19,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <string>
 #include <f1x/aasdk/Error/ErrorCode.hpp>
 
 namespace f1x

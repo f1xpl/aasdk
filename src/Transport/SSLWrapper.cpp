@@ -16,6 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string>
 #include <openssl/engine.h>
 #include <openssl/err.h>
 #include <openssl/ssl.h>

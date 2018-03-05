@@ -4,9 +4,7 @@
 ### Support project
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9YH2QCXZ3YZXJ)
 
-As a gift for all donators we offer free support for building and running of the aasdk project.
-
-For support of other platforms please contact us at f1xstudiopl@gmail.com
+For support of other platforms please contact me at f1xstudiopl@gmail.com
 
 ### Brief description
 C++ object-oriented library containing implementation of core AndroidAuto(tm) functionalities needed to build headunit software.

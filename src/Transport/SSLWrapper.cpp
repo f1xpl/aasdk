@@ -52,7 +52,7 @@ SSLWrapper::~SSLWrapper()
 
 X509* SSLWrapper::readCertificate(const std::string& certificate)
 {
-    auto bio = BIO_new_mem_buf(certificate.c_str(), certificate.size());
+    auto bio = BIO_new_mem_buf((void *)certificate.c_str(), certificate.size());
     X509* x509Certificate = PEM_read_bio_X509_AUX(bio, nullptr, nullptr, nullptr);
     BIO_free(bio);
 
@@ -61,7 +61,7 @@ X509* SSLWrapper::readCertificate(const std::string& certificate)
 
 EVP_PKEY* SSLWrapper::readPrivateKey(const std::string& privateKey)
 {
-    auto bio = BIO_new_mem_buf(privateKey.c_str(), privateKey.size());
+    auto bio = BIO_new_mem_buf((void *)privateKey.c_str(), privateKey.size());
     auto result = PEM_read_bio_PrivateKey (bio, nullptr, nullptr, nullptr);
     BIO_free(bio);
 

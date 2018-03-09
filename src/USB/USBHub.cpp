@@ -21,6 +21,7 @@
 #include <f1x/aasdk/USB/USBHub.hpp>
 #include <f1x/aasdk/USB/AccessoryModeQueryChain.hpp>
 #include <f1x/aasdk/Error/Error.hpp>
+#include <libusb.h>
 
 namespace f1x
 {
@@ -50,7 +51,7 @@ void USBHub::start(Promise::Pointer promise)
         if(self_ == nullptr)
         {
             self_ = this->shared_from_this();
-            hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
+            hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_ENUMERATE, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                                  LIBUSB_HOTPLUG_MATCH_ANY, &USBHub::hotplugEventsHandler, reinterpret_cast<void*>(this));
         }
     });

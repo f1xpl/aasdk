@@ -41,7 +41,6 @@ find_package(Protobuf REQUIRED)
 find_package(OpenSSL REQUIRED)
 
 set(AASDK_PROTO_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR})
-set(AASDK_PROTO_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libaasdk_proto.a")
 
 include_directories(${AASDK_PROTO_INCLUDE_DIRS}
                         ${Boost_INCLUDE_DIRS}
@@ -66,7 +65,7 @@ add_library(aasdk SHARED
 
 add_dependencies(aasdk aasdk_proto)
 target_link_libraries(aasdk
-                        ${AASDK_PROTO_LIBRARIES}
+                        aasdk_proto
                         ${Boost_LIBRARIES}
                         ${LIBUSB_1_LIBRARIES}
                         ${PROTOBUF_LIBRARIES}

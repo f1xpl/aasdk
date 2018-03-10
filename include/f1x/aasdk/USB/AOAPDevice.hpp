@@ -19,8 +19,8 @@
 #pragma once
 
 #include <utility>
-#include <libusb.h>
 #include <boost/asio.hpp>
+#include <libusb.h>
 #include <f1x/aasdk/USB/IUSBWrapper.hpp>
 #include <f1x/aasdk/USB/IAOAPDevice.hpp>
 

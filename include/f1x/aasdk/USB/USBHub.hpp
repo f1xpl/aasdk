@@ -18,9 +18,9 @@
 
 #pragma once
 
+#include <boost/asio.hpp>
 #include <libusb.h>
 #include <list>
-#include <boost/asio.hpp>
 #include <f1x/aasdk/USB/IUSBHub.hpp>
 #include <f1x/aasdk/USB/IAccessoryModeQueryChainFactory.hpp>
 

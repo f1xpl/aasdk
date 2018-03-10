@@ -19,6 +19,7 @@
 #pragma once
 
 #include <memory>
+#include <boost/asio.hpp>
 #include <libusb.h>
 #include <f1x/aasdk/IO/Promise.hpp>
 #include <f1x/aasdk/USB/IUSBEndpoint.hpp>

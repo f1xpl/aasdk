@@ -50,7 +50,7 @@ void USBEndpoint::controlTransfer(common::DataBuffer buffer, uint32_t timeout, P
         }
         else
         {
-            usbWrapper_.fillControlTransfer(transfer, handle_, buffer.data, &USBEndpoint::transferHandler, this, timeout);
+            usbWrapper_.fillControlTransfer(transfer, handle_, buffer.data, reinterpret_cast<libusb_transfer_cb_fn>(&USBEndpoint::transferHandler), this, timeout);
             this->transfer(transfer, std::move(promise));
         }
     }
@@ -71,7 +71,7 @@ void USBEndpoint::interruptTransfer(common::DataBuffer buffer, uint32_t timeout,
         }
         else
         {
-            usbWrapper_.fillInterruptTransfer(transfer, handle_, endpointAddress_, buffer.data, buffer.size, &USBEndpoint::transferHandler, this, timeout);
+            usbWrapper_.fillInterruptTransfer(transfer, handle_, endpointAddress_, buffer.data, buffer.size, reinterpret_cast<libusb_transfer_cb_fn>(&USBEndpoint::transferHandler), this, timeout);
             this->transfer(transfer, std::move(promise));
         }
     }
@@ -92,7 +92,7 @@ void USBEndpoint::bulkTransfer(common::DataBuffer buffer, uint32_t timeout, Prom
         }
         else
         {
-            usbWrapper_.fillBulkTransfer(transfer, handle_, endpointAddress_, buffer.data, buffer.size, &USBEndpoint::transferHandler, this, timeout);
+            usbWrapper_.fillBulkTransfer(transfer, handle_, endpointAddress_, buffer.data, buffer.size, reinterpret_cast<libusb_transfer_cb_fn>(&USBEndpoint::transferHandler), this, timeout);
             this->transfer(transfer, std::move(promise));
         }
     }

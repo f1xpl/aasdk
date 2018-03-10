@@ -27,7 +27,7 @@ add_definitions(-DBOOST_ALL_DYN_LINK)
 
 if(WIN32)
     set(WINSOCK2_LIBRARIES "ws2_32")
-endif()
+endif(WIN32)
 
 if(AASDK_TEST)
     include(ExternalGtest)

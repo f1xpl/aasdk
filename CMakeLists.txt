@@ -25,6 +25,10 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
+if(WIN32)
+    set(WINSOCK2_LIBRARIES "ws2_32")
+endif()
+
 if(AASDK_TEST)
     include(ExternalGtest)
 endif(AASDK_TEST)
@@ -34,6 +38,7 @@ add_subdirectory(aasdk_proto)
 find_package(Boost REQUIRED COMPONENTS system log OPTIONAL_COMPONENTS unit_test_framework)
 find_package(libusb-1.0 REQUIRED)
 find_package(Protobuf REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 set(AASDK_PROTO_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR})
 set(AASDK_PROTO_LIBRARIES "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libaasdk_proto.a")
@@ -42,6 +47,7 @@ include_directories(${AASDK_PROTO_INCLUDE_DIRS}
                         ${Boost_INCLUDE_DIRS}
                         ${LIBUSB_1_INCLUDE_DIRS}
                         ${PROTOBUF_INCLUDE_DIR}
+                        ${OPENSSL_INCLUDE_DIR}
                         ${GTEST_INCLUDE_DIRS}
                         ${GMOCK_INCLUDE_DIRS}
                         ${include_directory}
@@ -64,8 +70,8 @@ target_link_libraries(aasdk
                         ${Boost_LIBRARIES}
                         ${LIBUSB_1_LIBRARIES}
                         ${PROTOBUF_LIBRARIES}
-                        ssl
-                        crypto)
+                        ${OPENSSL_LIBRARIES}
+                        ${WINSOCK2_LIBRARIES})
 
 if(AASDK_TEST)
     add_executable(aasdk_ut

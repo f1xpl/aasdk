@@ -41,11 +41,11 @@ void TCPEndpoint::stop()
     socket_.close(ec);
 }
 
-void TCPEndpoint::asyncOperationHandler(const boost::system::error_code& ec, size_t bytesTransferred, Promise::Pointer promise)
+void TCPEndpoint::asyncOperationHandler(const boost::system::error_code& ec, size_t, Promise::Pointer promise)
 {
     if(!ec)
     {
-        promise->resolve(bytesTransferred);
+        promise->resolve();
     }
     else
     {

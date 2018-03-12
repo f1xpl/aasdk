@@ -15,7 +15,7 @@ class ITCPEndpoint
 {
 public:
     typedef std::shared_ptr<ITCPEndpoint> Pointer;
-    typedef io::Promise<size_t> Promise;
+    typedef io::Promise<void> Promise;
 
     virtual ~ITCPEndpoint() = default;
 

@@ -36,9 +36,7 @@ void TCPEndpoint::receive(common::DataBuffer buffer, Promise::Pointer promise)
 
 void TCPEndpoint::stop()
 {
-    boost::system::error_code ec;
-    socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
-    socket_.close(ec);
+    tcpWrapper_.close(socket_);
 }
 
 void TCPEndpoint::asyncOperationHandler(const boost::system::error_code& ec, size_t, Promise::Pointer promise)

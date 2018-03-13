@@ -18,6 +18,18 @@ void TCPWrapper::asyncRead(boost::asio::ip::tcp::socket& socket, common::DataBuf
     boost::asio::async_read(socket, boost::asio::buffer(buffer.data, buffer.size), std::move(handler));
 }
 
+void TCPWrapper::close(boost::asio::ip::tcp::socket& socket)
+{
+    boost::system::error_code ec;
+    socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+    socket.close(ec);
+}
+
+void TCPWrapper::asyncConnect(boost::asio::ip::tcp::socket& socket, const std::string& hostname, uint16_t port, ConnectHandler handler)
+{
+    socket.async_connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(hostname), port), std::move(handler));
+}
+
 }
 }
 }

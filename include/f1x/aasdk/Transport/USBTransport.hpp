@@ -22,7 +22,7 @@
 #include <queue>
 #include <boost/asio.hpp>
 #include <f1x/aasdk/Transport/ITransport.hpp>
-#include <f1x/aasdk/Transport/USBDataSink.hpp>
+#include <f1x/aasdk/Transport/DataSink.hpp>
 #include <f1x/aasdk/USB/IAOAPDevice.hpp>
 
 namespace f1x
@@ -54,7 +54,7 @@ private:
     void sendHandler(OutTransferQueue::iterator queueElementIter, common::Data::size_type offset, size_t bytesTransferred);
 
     usb::IAOAPDevice::Pointer aoapDevice_;
-    USBDataSink usbReceivedDataSink_;
+    DataSink usbReceivedDataSink_;
 
     boost::asio::io_service::strand receiveStrand_;
     InTransferQueue receiveQueue_;

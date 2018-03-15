@@ -34,7 +34,7 @@ TCPTransport::TCPTransport(boost::asio::io_service& ioService, tcp::ITCPEndpoint
 
 void TCPTransport::enqueueReceive(common::DataBuffer buffer)
 {
-    auto receivePromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
+    auto receivePromise = tcp::ITCPEndpoint::Promise::defer(receivesendStrand_);
     receivePromise->then([this, self = this->shared_from_this()](auto bytesTransferred) {
             this->receiveHandler(bytesTransferred);
         },

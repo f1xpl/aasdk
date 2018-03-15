@@ -57,7 +57,7 @@ const char* Error::what() const noexcept
 
 bool Error::operator!() const
 {
-    return code_ != ErrorCode::NONE || nativeCode_ != 0;
+    return code_ == ErrorCode::NONE;
 }
 
 bool Error::operator==(const Error& other) const

@@ -18,11 +18,8 @@
 
 #pragma once
 
-#include <list>
-#include <queue>
 #include <boost/asio.hpp>
 #include <f1x/aasdk/Transport/Transport.hpp>
-#include <f1x/aasdk/Transport/DataSink.hpp>
 #include <f1x/aasdk/USB/IAOAPDevice.hpp>
 
 namespace f1x
@@ -42,7 +39,6 @@ public:
 private:
     void enqueueReceive(common::DataBuffer buffer) override;
     void enqueueSend(SendQueue::iterator queueElement) override;
-    void receiveHandler(size_t bytesTransferred);
     void doSend(SendQueue::iterator queueElement, common::Data::size_type offset);
     void sendHandler(SendQueue::iterator queueElement, common::Data::size_type offset, size_t bytesTransferred);
 

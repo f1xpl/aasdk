@@ -48,19 +48,6 @@ void USBTransport::enqueueSend(SendQueue::iterator queueElement)
     this->doSend(queueElement, 0);
 }
 
-void USBTransport::receiveHandler(size_t bytesTransferred)
-{
-    try
-    {
-        receivedDataSink_.commit(bytesTransferred);
-        this->distributeReceivedData();
-    }
-    catch(const error::Error& e)
-    {
-        this->rejectReceivePromises(e);
-    }
-}
-
 void USBTransport::doSend(SendQueue::iterator queueElement, common::Data::size_type offset)
 {
     auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(sendStrand_);

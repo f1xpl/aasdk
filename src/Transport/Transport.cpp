@@ -49,6 +49,19 @@ void Transport::receive(size_t size, ReceivePromise::Pointer promise)
     });
 }
 
+void Transport::receiveHandler(size_t bytesTransferred)
+{
+    try
+    {
+        receivedDataSink_.commit(bytesTransferred);
+        this->distributeReceivedData();
+    }
+    catch(const error::Error& e)
+    {
+        this->rejectReceivePromises(e);
+    }
+}
+
 void Transport::distributeReceivedData()
 {
     for(auto queueElement = receiveQueue_.begin(); queueElement != receiveQueue_.end();)

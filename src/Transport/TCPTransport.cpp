@@ -26,36 +26,37 @@ namespace transport
 {
 
 TCPTransport::TCPTransport(boost::asio::io_service& ioService, tcp::ITCPEndpoint::Pointer tcpEndpoint)
-    : ioService_(ioService)
+    : Transport(ioService)
     , tcpEndpoint_(std::move(tcpEndpoint))
-    , receiveStrand_(ioService_)
-    , sendStrand_(ioService_)
 {
 
 }
 
-void TCPTransport::receive(size_t size, ReceivePromise::Pointer promise)
+void TCPTransport::enqueueReceive(common::DataBuffer buffer)
 {
-    receiveStrand_.dispatch([this, self = this->shared_from_this(), size, promise = std::move(promise)]() mutable {
-        receiveQueue_.emplace_back(std::make_pair(size, std::move(promise)));
+    auto receivePromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
+    receivePromise->then([this, self = this->shared_from_this()](auto bytesTransferred) {
+            this->receiveHandler(bytesTransferred);
+        },
+        [this, self = this->shared_from_this()](auto e) {
+            this->rejectReceivePromises(e);
+        });
 
-        if(receiveQueue_.size() == 1)
-        {
-            this->distributeReceivedData();
-        }
-    });
+    tcpEndpoint_->receive(buffer, std::move(receivePromise));
 }
 
-void TCPTransport::send(common::Data data, SendPromise::Pointer promise)
+void TCPTransport::enqueueSend(SendQueue::iterator queueElement)
 {
-    sendStrand_.dispatch([this, self = this->shared_from_this(), data = std::move(data), promise = std::move(promise)]() mutable {
-        sendQueue_.emplace_back(std::make_pair(std::move(data), std::move(promise)));
+    auto sendPromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
 
-        if(sendQueue_.size() == 1)
-        {
-            this->doSend();
-        }
+    sendPromise->then([this, self = this->shared_from_this(), queueElement](auto) {
+        this->sendHandler(queueElement, error::Error());
+    },
+    [this, self = this->shared_from_this(), queueElement](auto e) {
+        this->sendHandler(queueElement, e);
     });
+
+    tcpEndpoint_->send(common::DataConstBuffer(queueElement->first), std::move(sendPromise));
 }
 
 void TCPTransport::stop()
@@ -63,76 +64,22 @@ void TCPTransport::stop()
     tcpEndpoint_->stop();
 }
 
-void TCPTransport::receiveHandler(size_t bytesTransferred)
+void TCPTransport::sendHandler(SendQueue::iterator queueElement, const error::Error& e)
 {
-    try
+    if(!e)
     {
-        tcpReceivedDataSink_.commit(bytesTransferred);
-        this->distributeReceivedData();
+        queueElement->second->resolve();
     }
-    catch(const error::Error& e)
+    else
     {
-        //this->rejectReceivePromises(e);
+        queueElement->second->reject(e);
     }
-}
 
-void TCPTransport::receiveFailureHandler(const aasdk::error::Error& e)
-{
-}
-
-void TCPTransport::doSend()
-{
-    auto queueElement = sendQueue_.begin();
-
-    auto sendPromise = tcp::ITCPEndpoint::Promise::defer(sendStrand_);
-    sendPromise->then(std::bind(&TCPTransport::sendHandler, this->shared_from_this(), std::placeholders::_1, queueElement),
-                      std::bind(&TCPTransport::sendFailureHandler, this->shared_from_this(), std::placeholders::_1, queueElement));
-
-    tcpEndpoint_->send(common::DataConstBuffer(queueElement->first), std::move(sendPromise));
-}
-
-void TCPTransport::sendHandler(size_t, SendQueue::iterator queueElement)
-{
-    queueElement->second->resolve();
     sendQueue_.erase(queueElement);
 
     if(!sendQueue_.empty())
     {
-        this->doSend();
-    }
-}
-
-void TCPTransport::sendFailureHandler(const aasdk::error::Error& e, SendQueue::iterator queueElement)
-{
-    queueElement->second->reject(e);
-    sendQueue_.erase(queueElement);
-
-    if(!sendQueue_.empty())
-    {
-        this->doSend();
-    }
-}
-
-void TCPTransport::distributeReceivedData()
-{
-    for(auto queueElement = receiveQueue_.begin(); queueElement != receiveQueue_.end();)
-    {
-        if(tcpReceivedDataSink_.getAvailableSize() < queueElement->first)
-        {
-            auto buffer = tcpReceivedDataSink_.fill();
-
-            auto receivePromise = tcp::ITCPEndpoint::Promise::defer(receiveStrand_);
-            receivePromise->then(std::bind(&TCPTransport::receiveHandler, this->shared_from_this(), std::placeholders::_1),
-                                 std::bind(&TCPTransport::receiveFailureHandler, this->shared_from_this(), std::placeholders::_1));
-            tcpEndpoint_->receive(buffer, std::move(receivePromise));
-            break;
-        }
-        else
-        {
-            auto data(tcpReceivedDataSink_.consume(queueElement->first));
-            queueElement->second->resolve(std::move(data));
-            queueElement = receiveQueue_.erase(queueElement);
-        }
+        this->enqueueSend(sendQueue_.begin());
     }
 }
 

@@ -26,35 +26,33 @@ namespace transport
 {
 
 USBTransport::USBTransport(boost::asio::io_service& ioService, usb::IAOAPDevice::Pointer aoapDevice)
-    : aoapDevice_(std::move(aoapDevice))
-    , receiveStrand_(ioService)
-    , sendStrand_(ioService)
+    : Transport(ioService)
+    , aoapDevice_(std::move(aoapDevice))
 {}
 
-void USBTransport::receive(size_t size, ReceivePromise::Pointer promise)
+void USBTransport::enqueueReceive(common::DataBuffer buffer)
 {
-    receiveStrand_.dispatch([this, self = this->shared_from_this(), size, promise = std::move(promise)]() mutable {
-        receiveQueue_.emplace_back(std::make_pair(size, std::move(promise)));
+    auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(receiveStrand_);
+    usbEndpointPromise->then([this, self = this->shared_from_this()](auto bytesTransferred) {
+            this->receiveHandler(bytesTransferred);
+        },
+        [this, self = this->shared_from_this()](auto e) {
+            this->rejectReceivePromises(e);
+        });
 
-        if(receiveQueue_.size() == 1)
-        {
-            try
-            {
-                this->distributeReceivedData();
-            }
-            catch(const error::Error& e)
-            {
-                this->rejectReceivePromises(e);
-            }
-        }
-    });
+    aoapDevice_->getInEndpoint().bulkTransfer(buffer, cReceiveTimeoutMs, std::move(usbEndpointPromise));
+}
+
+void USBTransport::enqueueSend(SendQueue::iterator queueElement)
+{
+    this->doSend(queueElement, 0);
 }
 
 void USBTransport::receiveHandler(size_t bytesTransferred)
 {
     try
     {
-        usbReceivedDataSink_.commit(bytesTransferred);
+        receivedDataSink_.commit(bytesTransferred);
         this->distributeReceivedData();
     }
     catch(const error::Error& e)
@@ -63,79 +61,35 @@ void USBTransport::receiveHandler(size_t bytesTransferred)
     }
 }
 
-void USBTransport::distributeReceivedData()
-{
-    for(auto queueElement = receiveQueue_.begin(); queueElement != receiveQueue_.end();)
-    {
-        if(usbReceivedDataSink_.getAvailableSize() < queueElement->first)
-        {
-            auto buffer = usbReceivedDataSink_.fill();
-
-            auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(receiveStrand_);
-            usbEndpointPromise->then(std::bind(&USBTransport::receiveHandler, this->shared_from_this(), std::placeholders::_1),
-                                    std::bind(&USBTransport::rejectReceivePromises, this->shared_from_this(), std::placeholders::_1));
-            aoapDevice_->getInEndpoint().bulkTransfer(buffer, cReceiveTimeoutMs, std::move(usbEndpointPromise));
-            break;
-        }
-        else
-        {
-            auto data(usbReceivedDataSink_.consume(queueElement->first));
-            queueElement->second->resolve(std::move(data));
-            queueElement = receiveQueue_.erase(queueElement);
-        }
-    }
-}
-
-void USBTransport::rejectReceivePromises(const error::Error& e)
-{
-    for(auto& queueElement : receiveQueue_)
-    {
-        queueElement.second->reject(e);
-    }
-
-    receiveQueue_.clear();
-}
-
-void USBTransport::send(common::Data data, SendPromise::Pointer promise)
-{    
-    sendStrand_.dispatch([this, self = this->shared_from_this(), data = std::move(data), promise = std::move(promise)]() mutable {
-        sendQueue_.emplace_back(std::make_pair(std::move(data), std::move(promise)));
-
-        if(sendQueue_.size() == 1)
-        {
-            this->doSend(sendQueue_.begin(), 0);
-        }
-    });
-}
-
-void USBTransport::doSend(OutTransferQueue::iterator queueElementIter, common::Data::size_type offset)
+void USBTransport::doSend(SendQueue::iterator queueElement, common::Data::size_type offset)
 {
     auto usbEndpointPromise = usb::IUSBEndpoint::Promise::defer(sendStrand_);
-    usbEndpointPromise->then([this, self = this->shared_from_this(), queueElementIter, offset](size_t bytesTransferred) mutable {
-            this->sendHandler(queueElementIter, offset, bytesTransferred);
+    usbEndpointPromise->then([this, self = this->shared_from_this(), queueElement, offset](size_t bytesTransferred) mutable {
+            this->sendHandler(queueElement, offset, bytesTransferred);
         },
-        [this, self = this->shared_from_this(), queueElementIter](const error::Error& e) mutable {
-            queueElementIter->second->reject(e);
-            sendQueue_.erase(queueElementIter);
+        [this, self = this->shared_from_this(), queueElement](const error::Error& e) mutable {
+            queueElement->second->reject(e);
+            sendQueue_.erase(queueElement);
 
             if(!sendQueue_.empty())
             {
                 this->doSend(sendQueue_.begin(), 0);
             }
         });
-    aoapDevice_->getOutEndpoint().bulkTransfer(common::DataBuffer(queueElementIter->first, offset), cSendTimeoutMs, std::move(usbEndpointPromise));
+
+    aoapDevice_->getOutEndpoint().bulkTransfer(common::DataBuffer(queueElement->first, offset), cSendTimeoutMs, std::move(usbEndpointPromise));
 }
 
-void USBTransport::sendHandler(OutTransferQueue::iterator queueElementIter, common::Data::size_type offset, size_t bytesTransferred)
+void USBTransport::sendHandler(SendQueue::iterator queueElement, common::Data::size_type offset, size_t bytesTransferred)
 {
-    if(offset + bytesTransferred < queueElementIter->first.size())
+    if(offset + bytesTransferred < queueElement->first.size())
     {
-        this->doSend(queueElementIter, offset + bytesTransferred);
+        this->doSend(queueElement, offset + bytesTransferred);
     }
     else
     {
-        queueElementIter->second->resolve();
-        sendQueue_.erase(queueElementIter);
+        queueElement->second->resolve();
+        sendQueue_.erase(queueElement);
 
         if(!sendQueue_.empty())
         {

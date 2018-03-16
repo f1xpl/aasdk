@@ -41,6 +41,7 @@ struct DataBuffer
     DataBuffer(void* _data, Data::size_type _size, Data::size_type offset = 0);
     explicit DataBuffer(Data& _data, Data::size_type offset = 0);
     bool operator==(const std::nullptr_t&) const;
+    bool operator==(const DataBuffer& buffer) const;
 
     Data::value_type* data;
     Data::size_type size;
@@ -54,6 +55,7 @@ struct DataConstBuffer
     DataConstBuffer(const void* _data, Data::size_type _size, Data::size_type offset = 0);
     explicit DataConstBuffer(const Data& _data, Data::size_type offset = 0);
     bool operator==(const std::nullptr_t&) const;
+    bool operator==(const DataConstBuffer& buffer) const;
 
     const Data::value_type* cdata;
     Data::size_type size;

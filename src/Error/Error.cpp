@@ -65,6 +65,16 @@ bool Error::operator==(const Error& other) const
     return code_ == other.code_ && nativeCode_ == other.nativeCode_;
 }
 
+bool Error::operator==(const ErrorCode& code) const
+{
+    return code_ == code;
+}
+
+bool Error::operator!=(const ErrorCode& code) const
+{
+    return !operator==(code);
+}
+
 }
 }
 }

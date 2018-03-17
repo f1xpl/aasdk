@@ -133,7 +133,9 @@ void Messenger::rejectSendPromiseQueue(const error::Error& e)
 
 void Messenger::stop()
 {
-    channelReceiveMessageQueue_.clear();
+    receiveStrand_.dispatch([this, self = this->shared_from_this()]() {
+        channelReceiveMessageQueue_.clear();
+    });
 }
 
 }

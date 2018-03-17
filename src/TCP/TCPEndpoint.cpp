@@ -65,7 +65,8 @@ void TCPEndpoint::asyncOperationHandler(const boost::system::error_code& ec, siz
     }
     else
     {
-        promise->reject(error::Error(error::ErrorCode::TCP_TRANSFER, static_cast<uint32_t>(ec.value())));
+        auto error = ec == boost::asio::error::operation_aborted ? error::Error(error::ErrorCode::OPERATION_ABORTED) : error::Error(error::ErrorCode::TCP_TRANSFER, static_cast<uint32_t>(ec.value()));
+        promise->reject(error);
     }
 }
 

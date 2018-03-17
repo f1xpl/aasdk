@@ -120,8 +120,8 @@ BOOST_FIXTURE_TEST_CASE(TCPEndpoint_SendError, TCPEndpointUnitTest)
     tcpEndpoint->send(common::DataConstBuffer(actualData), std::move(promise_));
 
     EXPECT_CALL(promiseHandlerMock_, onResolve(_)).Times(0);
-    EXPECT_CALL(promiseHandlerMock_, onReject(error::Error(error::ErrorCode::TCP_TRANSFER, boost::asio::error::already_started)));
-    handler(boost::asio::error::already_started, 0);
+    EXPECT_CALL(promiseHandlerMock_, onReject(error::Error(error::ErrorCode::OPERATION_ABORTED)));
+    handler(boost::asio::error::operation_aborted, 0);
 
     ioService_.run();
 }

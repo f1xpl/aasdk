@@ -283,7 +283,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_BulkTransferFailed, USBEndpointUnitTest)
     transferCallback(&transfer);
 
     EXPECT_CALL(usbWrapperMock_, freeTransfer(&transfer));
-    EXPECT_CALL(promiseHandlerMock_, onReject(error::Error(error::ErrorCode::USB_TRANSFER, transfer.status))).Times(1);
+    EXPECT_CALL(promiseHandlerMock_, onReject(error::Error(error::ErrorCode::OPERATION_ABORTED))).Times(1);
     EXPECT_CALL(promiseHandlerMock_, onResolve(_)).Times(0);
     ioService_.run();
 }

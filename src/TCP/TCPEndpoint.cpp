@@ -25,7 +25,7 @@ namespace aasdk
 namespace tcp
 {
 
-TCPEndpoint::TCPEndpoint(ITCPWrapper& tcpWrapper, boost::asio::ip::tcp::socket socket)
+TCPEndpoint::TCPEndpoint(ITCPWrapper& tcpWrapper, SocketPointer socket)
     : tcpWrapper_(tcpWrapper)
     , socket_(std::move(socket))
 {
@@ -34,7 +34,7 @@ TCPEndpoint::TCPEndpoint(ITCPWrapper& tcpWrapper, boost::asio::ip::tcp::socket s
 
 void TCPEndpoint::send(common::DataConstBuffer buffer, Promise::Pointer promise)
 {
-    tcpWrapper_.asyncWrite(socket_, std::move(buffer),
+    tcpWrapper_.asyncWrite(*socket_, std::move(buffer),
                            std::bind(&TCPEndpoint::asyncOperationHandler,
                                      this->shared_from_this(),
                                      std::placeholders::_1,
@@ -44,7 +44,7 @@ void TCPEndpoint::send(common::DataConstBuffer buffer, Promise::Pointer promise)
 
 void TCPEndpoint::receive(common::DataBuffer buffer, Promise::Pointer promise)
 {
-    tcpWrapper_.asyncRead(socket_, std::move(buffer),
+    tcpWrapper_.asyncRead(*socket_, std::move(buffer),
                           std::bind(&TCPEndpoint::asyncOperationHandler,
                                     this->shared_from_this(),
                                     std::placeholders::_1,
@@ -54,7 +54,7 @@ void TCPEndpoint::receive(common::DataBuffer buffer, Promise::Pointer promise)
 
 void TCPEndpoint::stop()
 {
-    tcpWrapper_.close(socket_);
+    tcpWrapper_.close(*socket_);
 }
 
 void TCPEndpoint::asyncOperationHandler(const boost::system::error_code& ec, size_t bytesTransferred, Promise::Pointer promise)

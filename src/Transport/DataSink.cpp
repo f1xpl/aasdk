@@ -35,7 +35,7 @@ DataSink::DataSink()
 common::DataBuffer DataSink::fill()
 {
     const auto offset = data_.size();
-    data_.insert(data_.end(), cChunkSize, 0);
+    data_.resize(data_.size() + cChunkSize);
 
     return common::DataBuffer(&data_[offset], cChunkSize);
 }

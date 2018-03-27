@@ -47,7 +47,7 @@ void DataSink::commit(common::Data::size_type size)
         throw error::Error(error::ErrorCode::DATA_SINK_COMMIT_OVERFLOW);
     }
 
-    data_.resize(data_.size() - (cChunkSize - size));
+    data_.erase_end((cChunkSize - size));
 }
 
 common::Data::size_type DataSink::getAvailableSize()
@@ -64,7 +64,7 @@ common::Data DataSink::consume(common::Data::size_type size)
 
     common::Data data;
     common::copy(data, common::DataConstBuffer(&data_[0], size));
-    data_.erase(data_.begin(), data_.begin() + size);
+    data_.erase_begin(size);
 
     return data;
 }

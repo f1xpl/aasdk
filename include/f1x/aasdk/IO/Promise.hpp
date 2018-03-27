@@ -51,13 +51,13 @@ public:
     }
 
     Promise(boost::asio::io_service& ioService)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(ioService))
+        : ioContextWrapper_(ioService)
     {
 
     }
 
     Promise(boost::asio::io_service::strand& strand)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(strand))
+        : ioContextWrapper_(strand)
     {
 
     }
@@ -76,12 +76,11 @@ public:
 
         if(resolveHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
+            ioContextWrapper_.post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
                 (*resolveHandler)(std::move(argument));
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         rejectHandler_.reset();
     }
@@ -92,12 +91,11 @@ public:
 
         if(rejectHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
+            ioContextWrapper_.post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
                 (*rejectHandler)(std::move(error));
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         resolveHandler_.reset();
     }
@@ -105,12 +103,12 @@ public:
 private:
     bool isPending() const
     {
-        return ioContextWrapper_ != nullptr && ioContextWrapper_->isActive();
+        return ioContextWrapper_.isActive();
     }
 
     std::shared_ptr<ResolveHandler> resolveHandler_;
     std::shared_ptr<RejectHandler> rejectHandler_;
-    IOContextWrapper::Pointer ioContextWrapper_;
+    IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
 };
 
@@ -134,13 +132,13 @@ public:
     }
 
     Promise(boost::asio::io_service& ioService)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(ioService))
+        : ioContextWrapper_(ioService)
     {
 
     }
 
     Promise(boost::asio::io_service::strand& strand)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(strand))
+        : ioContextWrapper_(strand)
     {
 
     }
@@ -159,12 +157,11 @@ public:
 
         if(resolveHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([resolveHandler = std::move(resolveHandler_)]() mutable {
+            ioContextWrapper_.post([resolveHandler = std::move(resolveHandler_)]() mutable {
                 (*resolveHandler)();
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         rejectHandler_.reset();
     }
@@ -175,12 +172,11 @@ public:
 
         if(rejectHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
+            ioContextWrapper_.post([error = std::move(error), rejectHandler = std::move(rejectHandler_)]() mutable {
                 (*rejectHandler)(std::move(error));
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         resolveHandler_.reset();
     }
@@ -188,12 +184,12 @@ public:
 private:
     bool isPending() const
     {
-        return ioContextWrapper_ != nullptr && ioContextWrapper_->isActive();
+        return ioContextWrapper_.isActive();
     }
 
     std::shared_ptr<ResolveHandler> resolveHandler_;
     std::shared_ptr<RejectHandler> rejectHandler_;
-    IOContextWrapper::Pointer ioContextWrapper_;
+    IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
 };
 
@@ -216,13 +212,13 @@ public:
     }
 
     Promise(boost::asio::io_service& ioService)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(ioService))
+        : ioContextWrapper_(ioService)
     {
 
     }
 
     Promise(boost::asio::io_service::strand& strand)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(strand))
+        : ioContextWrapper_(strand)
     {
 
     }
@@ -241,12 +237,11 @@ public:
 
         if(resolveHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([resolveHandler = std::move(resolveHandler_)]() mutable {
+            ioContextWrapper_.post([resolveHandler = std::move(resolveHandler_)]() mutable {
                 (*resolveHandler)();
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         rejectHandler_.reset();
     }
@@ -257,12 +252,11 @@ public:
 
         if(rejectHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([rejectHandler = std::move(rejectHandler_)]() mutable {
+            ioContextWrapper_.post([rejectHandler = std::move(rejectHandler_)]() mutable {
                 (*rejectHandler)();
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         resolveHandler_.reset();
     }
@@ -270,12 +264,12 @@ public:
 private:
     bool isPending() const
     {
-        return ioContextWrapper_ != nullptr && ioContextWrapper_->isActive();
+        return ioContextWrapper_.isActive();
     }
 
     std::shared_ptr<ResolveHandler> resolveHandler_;
     std::shared_ptr<RejectHandler> rejectHandler_;
-    IOContextWrapper::Pointer ioContextWrapper_;
+    IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
 };
 
@@ -299,13 +293,13 @@ public:
     }
 
     Promise(boost::asio::io_service& ioService)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(ioService))
+        : ioContextWrapper_(ioService)
     {
 
     }
 
     Promise(boost::asio::io_service::strand& strand)
-        : ioContextWrapper_(std::make_shared<IOContextWrapper>(strand))
+        : ioContextWrapper_(strand)
     {
 
     }
@@ -324,12 +318,11 @@ public:
 
         if(resolveHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
+            ioContextWrapper_.post([argument = std::move(argument), resolveHandler = std::move(resolveHandler_)]() mutable {
                 (*resolveHandler)(std::move(argument));
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         rejectHandler_.reset();
     }
@@ -340,12 +333,11 @@ public:
 
         if(rejectHandler_ != nullptr && this->isPending())
         {
-            ioContextWrapper_->post([rejectHandler = std::move(rejectHandler_)]() mutable {
+            ioContextWrapper_.post([rejectHandler = std::move(rejectHandler_)]() mutable {
                 (*rejectHandler)();
             });
         }
 
-        ioContextWrapper_->reset();
         ioContextWrapper_.reset();
         resolveHandler_.reset();
     }
@@ -353,12 +345,12 @@ public:
 private:
     bool isPending() const
     {
-        return ioContextWrapper_ != nullptr && ioContextWrapper_->isActive();
+        return ioContextWrapper_.isActive();
     }
 
     std::shared_ptr<ResolveHandler> resolveHandler_;
     std::shared_ptr<RejectHandler> rejectHandler_;
-    IOContextWrapper::Pointer ioContextWrapper_;
+    IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
 };
 

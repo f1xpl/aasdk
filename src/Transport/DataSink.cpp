@@ -37,7 +37,8 @@ common::DataBuffer DataSink::fill()
     const auto offset = data_.size();
     data_.resize(data_.size() + cChunkSize);
 
-    return common::DataBuffer(&data_[offset], cChunkSize);
+    auto ptr = data_.is_linearized() ? &data_[offset] : data_.linearize() + offset;
+    return common::DataBuffer(ptr, cChunkSize);
 }
 
 void DataSink::commit(common::Data::size_type size)
@@ -62,8 +63,8 @@ common::Data DataSink::consume(common::Data::size_type size)
         throw error::Error(error::ErrorCode::DATA_SINK_CONSUME_UNDERFLOW);
     }
 
-    common::Data data;
-    common::copy(data, common::DataConstBuffer(&data_[0], size));
+    common::Data data(size, 0);
+    std::copy(data_.begin(), data_.begin() + size, data.begin());
     data_.erase_begin(size);
 
     return data;

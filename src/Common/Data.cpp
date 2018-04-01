@@ -65,6 +65,11 @@ bool DataBuffer::operator==(const std::nullptr_t&) const
     return data == nullptr || size == 0;
 }
 
+bool DataBuffer::operator==(const DataBuffer& buffer) const
+{
+    return data == buffer.data && size == buffer.size;
+}
+
 DataConstBuffer::DataConstBuffer()
     : cdata(nullptr)
     , size(0)
@@ -107,6 +112,11 @@ DataConstBuffer::DataConstBuffer(const Data& _data, Data::size_type offset)
 bool DataConstBuffer::operator==(const std::nullptr_t&) const
 {
     return cdata == nullptr || size == 0;
+}
+
+bool DataConstBuffer::operator==(const DataConstBuffer& buffer) const
+{
+    return cdata == buffer.cdata && size == buffer.size;
 }
 
 common::Data createData(const DataConstBuffer& buffer)

@@ -18,36 +18,23 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <f1x/aasdk/TCP/ITCPWrapper.hpp>
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace tcp
 {
 
-class Error: public std::exception
+class TCPWrapper: public ITCPWrapper
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
-
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
-
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
-
-private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    void asyncWrite(boost::asio::ip::tcp::socket& socket, common::DataConstBuffer buffer, Handler handler) override;
+    void asyncRead(boost::asio::ip::tcp::socket& socket, common::DataBuffer buffer, Handler handler) override;
+    void close(boost::asio::ip::tcp::socket& socket) override;
+    void asyncConnect(boost::asio::ip::tcp::socket& socket, const std::string& hostname, uint16_t port, ConnectHandler handler) override;
+    boost::system::error_code connect(boost::asio::ip::tcp::socket& socket, const std::string& hostname, uint16_t port) override;
 };
 
 }

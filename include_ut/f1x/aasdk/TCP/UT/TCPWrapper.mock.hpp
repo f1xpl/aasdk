@@ -18,38 +18,29 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <gmock/gmock.h>
+#include <f1x/aasdk/TCP/ITCPWrapper.hpp>
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace tcp
+{
+namespace ut
 {
 
-class Error: public std::exception
+class TCPWrapperMock: public ITCPWrapper
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
-
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
-
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
-
-private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    MOCK_METHOD3(asyncWrite, void(boost::asio::ip::tcp::socket& socket, common::DataConstBuffer buffer, Handler handler));
+    MOCK_METHOD3(asyncRead, void(boost::asio::ip::tcp::socket& socket, common::DataBuffer buffer, Handler handler));
+    MOCK_METHOD1(close, void(boost::asio::ip::tcp::socket& socket));
+    MOCK_METHOD4(asyncConnect, void(boost::asio::ip::tcp::socket& socket, const std::string& hostname, uint16_t port, ConnectHandler handler));
+    MOCK_METHOD3(connect, boost::system::error_code(boost::asio::ip::tcp::socket& socket, const std::string& hostname, uint16_t port));
 };
 
+}
 }
 }
 }

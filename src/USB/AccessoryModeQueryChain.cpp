@@ -66,11 +66,13 @@ void AccessoryModeQueryChain::start(DeviceHandle handle, Promise::Pointer promis
 
 void AccessoryModeQueryChain::cancel()
 {
-    if(activeQuery_ != nullptr)
-    {
-        activeQuery_->cancel();
-        activeQuery_.reset();
-    }
+    strand_.dispatch([this, self = this->shared_from_this()]() {
+        if(activeQuery_ != nullptr)
+        {
+            activeQuery_->cancel();
+            activeQuery_.reset();
+        }
+    });
 }
 
 void AccessoryModeQueryChain::startQuery(AccessoryModeQueryType queryType, IUSBEndpoint::Pointer usbEndpoint, IAccessoryModeQuery::Promise::Pointer queryPromise)

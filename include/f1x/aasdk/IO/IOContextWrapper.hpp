@@ -28,11 +28,9 @@ namespace aasdk
 namespace io
 {
 
-class IOContextWrapper: boost::noncopyable
+class IOContextWrapper
 {
 public:
-    typedef std::shared_ptr<IOContextWrapper> Pointer;
-
     IOContextWrapper();
     explicit IOContextWrapper(boost::asio::io_service& ioService);
     explicit IOContextWrapper(boost::asio::io_service::strand& strand);

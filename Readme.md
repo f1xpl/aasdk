@@ -12,6 +12,7 @@ C++ object-oriented library containing implementation of core AndroidAuto(tm) fu
 ### Supported functionalities
  - AOAP (Android Open Accessory Protocol)
  - USB transport
+ - TCP transport
  - USB hotplug
  - AndroidAuto(tm) protocol
  - SSL encryption

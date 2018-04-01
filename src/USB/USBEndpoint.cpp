@@ -159,7 +159,8 @@ void USBEndpoint::transferHandler(libusb_transfer *transfer)
         }
         else
         {
-            promise->reject(error::Error(error::ErrorCode::USB_TRANSFER, transfer->status));
+            auto error = transfer->status == LIBUSB_TRANSFER_CANCELLED ? error::Error(error::ErrorCode::OPERATION_ABORTED) : error::Error(error::ErrorCode::USB_TRANSFER, transfer->status);
+            promise->reject(error);
         }
 
         self->usbWrapper_.freeTransfer(transfer);

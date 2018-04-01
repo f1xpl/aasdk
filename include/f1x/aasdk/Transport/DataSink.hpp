@@ -18,36 +18,32 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <limits>
+#include <boost/circular_buffer.hpp>
+#include <f1x/aasdk/Common/Data.hpp>
+
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace transport
 {
 
-class Error: public std::exception
+class DataSink
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
+    DataSink();
 
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
+    common::DataBuffer fill();
+    void commit(common::Data::size_type size);
 
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
+    common::Data::size_type getAvailableSize();
+    common::Data consume(common::Data::size_type size);
 
 private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    boost::circular_buffer<common::Data::value_type> data_;
+    static constexpr common::Data::size_type cChunkSize = 16384;
 };
 
 }

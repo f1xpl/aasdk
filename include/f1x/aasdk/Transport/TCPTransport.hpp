@@ -18,10 +18,8 @@
 
 #pragma once
 
-#include <limits>
-#include <boost/circular_buffer.hpp>
-#include <f1x/aasdk/Common/Data.hpp>
-
+#include <f1x/aasdk/TCP/ITCPEndpoint.hpp>
+#include <f1x/aasdk/Transport/Transport.hpp>
 
 namespace f1x
 {
@@ -30,20 +28,19 @@ namespace aasdk
 namespace transport
 {
 
-class USBDataSink
+class TCPTransport: public Transport
 {
 public:
-    USBDataSink();
+    TCPTransport(boost::asio::io_service& ioService, tcp::ITCPEndpoint::Pointer tcpEndpoint);
 
-    common::DataBuffer fill();
-    void commit(common::Data::size_type size);
-
-    common::Data::size_type getAvailableSize();
-    common::Data consume(common::Data::size_type size);
+    void stop() override;
 
 private:
-    boost::circular_buffer<common::Data::value_type> data_;
-    static constexpr common::Data::size_type cChunkSize = 16384;
+    void enqueueReceive(common::DataBuffer buffer) override;
+    void enqueueSend(SendQueue::iterator queueElement) override;
+    void sendHandler(SendQueue::iterator queueElement, const error::Error& e);
+
+    tcp::ITCPEndpoint::Pointer tcpEndpoint_;
 };
 
 }

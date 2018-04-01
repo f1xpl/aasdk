@@ -17,7 +17,7 @@
 */
 
 #include <cstring>
-#include <f1x/aasdk/Transport/USBDataSink.hpp>
+#include <f1x/aasdk/Transport/DataSink.hpp>
 #include <f1x/aasdk/Error/Error.hpp>
 
 namespace f1x
@@ -27,44 +27,45 @@ namespace aasdk
 namespace transport
 {
 
-USBDataSink::USBDataSink()
+DataSink::DataSink()
     : data_(common::cStaticDataSize)
 {
 }
 
-common::DataBuffer USBDataSink::fill()
+common::DataBuffer DataSink::fill()
 {
     const auto offset = data_.size();
     data_.resize(data_.size() + cChunkSize);
 
-    return common::DataBuffer(&data_[offset], cChunkSize);
+    auto ptr = data_.is_linearized() ? &data_[offset] : data_.linearize() + offset;
+    return common::DataBuffer(ptr, cChunkSize);
 }
 
-void USBDataSink::commit(common::Data::size_type size)
+void DataSink::commit(common::Data::size_type size)
 {
     if(size > cChunkSize)
     {
-        throw error::Error(error::ErrorCode::USB_SINK_COMMIT_OVERFLOW);
+        throw error::Error(error::ErrorCode::DATA_SINK_COMMIT_OVERFLOW);
     }
 
-    data_.resize(data_.size() - (cChunkSize - size));
+    data_.erase_end((cChunkSize - size));
 }
 
-common::Data::size_type USBDataSink::getAvailableSize()
+common::Data::size_type DataSink::getAvailableSize()
 {
     return data_.size();
 }
 
-common::Data USBDataSink::consume(common::Data::size_type size)
+common::Data DataSink::consume(common::Data::size_type size)
 {
     if(size > data_.size())
     {
-        throw error::Error(error::ErrorCode::USB_SINK_CONSUME_UNDERFLOW);
+        throw error::Error(error::ErrorCode::DATA_SINK_CONSUME_UNDERFLOW);
     }
 
-    common::Data data;
-    common::copy(data, common::DataConstBuffer(&data_[0], size));
-    data_.erase(data_.begin(), data_.begin() + size);
+    common::Data data(size, 0);
+    std::copy(data_.begin(), data_.begin() + size, data.begin());
+    data_.erase_begin(size);
 
     return data;
 }

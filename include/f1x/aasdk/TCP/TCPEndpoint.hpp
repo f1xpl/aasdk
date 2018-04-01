@@ -18,36 +18,33 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <f1x/aasdk/TCP/ITCPEndpoint.hpp>
+#include <f1x/aasdk/TCP/ITCPWrapper.hpp>
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace tcp
 {
 
-class Error: public std::exception
+class TCPEndpoint: public ITCPEndpoint, public std::enable_shared_from_this<TCPEndpoint>
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
+    TCPEndpoint(ITCPWrapper& tcpWrapper, SocketPointer socket);
 
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
-
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
+    void send(common::DataConstBuffer buffer, Promise::Pointer promise) override;
+    void receive(common::DataBuffer buffer, Promise::Pointer promise) override;
+    void stop() override;
 
 private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    using std::enable_shared_from_this<TCPEndpoint>::shared_from_this;
+
+    void asyncOperationHandler(const boost::system::error_code& ec, size_t bytesTransferred, Promise::Pointer promise);
+
+    ITCPWrapper& tcpWrapper_;
+    SocketPointer socket_;
 };
 
 }

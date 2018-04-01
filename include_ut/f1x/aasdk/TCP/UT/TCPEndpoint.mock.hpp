@@ -18,38 +18,27 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <gmock/gmock.h>
+#include <f1x/aasdk/TCP/ITCPEndpoint.hpp>
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace tcp
+{
+namespace ut
 {
 
-class Error: public std::exception
+class TCPEndpointMock: public ITCPEndpoint
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
-
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
-
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
-
-private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    MOCK_METHOD2(send, void(common::DataConstBuffer buffer, Promise::Pointer promise));
+    MOCK_METHOD2(receive, void(common::DataBuffer buffer, Promise::Pointer promise));
+    MOCK_METHOD0(stop, void());
 };
 
+}
 }
 }
 }

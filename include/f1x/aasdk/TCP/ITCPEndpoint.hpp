@@ -18,36 +18,29 @@
 
 #pragma once
 
-#include <stdexcept>
-#include <string>
-#include <f1x/aasdk/Error/ErrorCode.hpp>
+#include <memory>
+#include <f1x/aasdk/Common/Data.hpp>
+#include <f1x/aasdk/IO/Promise.hpp>
 
 namespace f1x
 {
 namespace aasdk
 {
-namespace error
+namespace tcp
 {
 
-class Error: public std::exception
+class ITCPEndpoint
 {
 public:
-    Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
+    typedef std::shared_ptr<ITCPEndpoint> Pointer;
+    typedef io::Promise<size_t> Promise;
+    typedef std::shared_ptr<boost::asio::ip::tcp::socket> SocketPointer;
 
-    ErrorCode getCode() const;
-    uint32_t getNativeCode() const;
-    const char* what() const noexcept override;
+    virtual ~ITCPEndpoint() = default;
 
-    bool operator!() const;
-    bool operator==(const Error& other) const;
-    bool operator==(const ErrorCode& code) const;
-    bool operator!=(const ErrorCode& code) const;
-
-private:
-    ErrorCode code_;
-    uint32_t nativeCode_;
-    std::string message_;
+    virtual void send(common::DataConstBuffer buffer, Promise::Pointer promise) = 0;
+    virtual void receive(common::DataBuffer buffer, Promise::Pointer promise) = 0;
+    virtual void stop() = 0;
 };
 
 }

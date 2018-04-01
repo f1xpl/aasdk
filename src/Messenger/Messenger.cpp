@@ -133,9 +133,9 @@ void Messenger::rejectSendPromiseQueue(const error::Error& e)
 
 void Messenger::stop()
 {
-    this->rejectReceivePromiseQueue(error::Error(error::ErrorCode::OPERATION_ABORTED));
-    this->rejectSendPromiseQueue(error::Error(error::ErrorCode::OPERATION_ABORTED));
-    channelReceiveMessageQueue_.clear();
+    receiveStrand_.dispatch([this, self = this->shared_from_this()]() {
+        channelReceiveMessageQueue_.clear();
+    });
 }
 
 }

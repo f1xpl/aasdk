@@ -47,6 +47,7 @@ public:
     void sendShutdownRequest(const proto::messages::ShutdownRequest& request, SendPromise::Pointer promise) override;
     void sendShutdownResponse(const proto::messages::ShutdownResponse& response, SendPromise::Pointer promise) override;
     void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& respons, SendPromise::Pointer promisee) override;
+    void sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<ControlServiceChannel>::shared_from_this;
@@ -58,6 +59,7 @@ private:
     void handleShutdownRequest(const common::DataConstBuffer& payload, IControlServiceChannelEventHandler::Pointer eventHandler);
     void handleShutdownResponse(const common::DataConstBuffer& payload, IControlServiceChannelEventHandler::Pointer eventHandler);
     void handleNavigationFocusRequest(const common::DataConstBuffer& payload, IControlServiceChannelEventHandler::Pointer eventHandler);
+    void handlePingResponse(const common::DataConstBuffer& payload, IControlServiceChannelEventHandler::Pointer eventHandler);
 };
 
 }

@@ -117,7 +117,7 @@ void ControlServiceChannel::sendNavigationFocusResponse(const proto::messages::N
 
 void ControlServiceChannel::sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise)
 {
-    auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::ENCRYPTED, messenger::MessageType::SPECIFIC));
+    auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::PLAIN, messenger::MessageType::SPECIFIC));
     message->insertPayload(messenger::MessageId(proto::ids::ControlMessage::PING_REQUEST).getData());
     message->insertPayload(request);
 

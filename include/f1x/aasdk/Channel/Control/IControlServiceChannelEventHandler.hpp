@@ -26,6 +26,7 @@
 #include <aasdk_proto/ServiceDiscoveryRequestMessage.pb.h>
 #include <aasdk_proto/AudioFocusRequestMessage.pb.h>
 #include <aasdk_proto/NavigationFocusRequestMessage.pb.h>
+#include <aasdk_proto/PingResponseMessage.pb.h>
 
 namespace f1x
 {
@@ -51,6 +52,7 @@ public:
     virtual void onShutdownRequest(const proto::messages::ShutdownRequest& request) = 0;
     virtual void onShutdownResponse(const proto::messages::ShutdownResponse& response) = 0;
     virtual void onNavigationFocusRequest(const proto::messages::NavigationFocusRequest& request) = 0;
+    virtual void onPingResponse(const proto::messages::PingResponse& response) = 0;
     virtual void onChannelError(const error::Error& e) = 0;
 };
 

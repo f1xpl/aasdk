@@ -69,7 +69,6 @@ void ConnectedAccessoriesEnumerator::cancel()
         if(queryChain_ != nullptr)
         {
             queryChain_->cancel();
-            queryChain_.reset();
         }
     });
 }
@@ -91,6 +90,11 @@ void ConnectedAccessoriesEnumerator::queryNextDevice()
                 if(e != error::ErrorCode::OPERATION_ABORTED)
                 {
                     this->queryNextDevice();
+                }
+                else
+                {
+                    promise_->reject(e);
+                    this->reset();
                 }
             });
 

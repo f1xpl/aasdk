@@ -205,6 +205,32 @@ BOOST_FIXTURE_TEST_CASE(ConnectedAccessoriesEnumerator_OpenDeviceFailed, Connect
     ioService_.run();
 }
 
+BOOST_FIXTURE_TEST_CASE(ConnectedAccessoriesEnumerator_CancelEnumeration, ConnectedAccessoriesEnumeratorUnitTest)
+{
+    deviceList_.push_back(reinterpret_cast<libusb_device*>(1));
+    EXPECT_CALL(queryChainFactoryMock_, create()).WillOnce(Return(queryChain_));
+    auto connectedAccessoriesEnumerator(std::make_shared<ConnectedAccessoriesEnumerator>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
+
+    EXPECT_CALL(usbWrapperMock_, getDeviceList(_)).WillOnce(DoAll(SetArgReferee<0>(deviceListHandle_), Return(0)));
+    connectedAccessoriesEnumerator->enumerate(std::move(promise_));
+
+    EXPECT_CALL(usbWrapperMock_, open(*deviceList_.begin(), _)).WillOnce(DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
+
+    IAccessoryModeQueryChain::Promise::Pointer queryChainPromise;
+    EXPECT_CALL(queryChainMock_, start(deviceHandle_, _)).WillOnce(SaveArg<1>(&queryChainPromise));
+    ioService_.run();
+    ioService_.reset();
+
+    EXPECT_CALL(queryChainMock_, cancel());
+    connectedAccessoriesEnumerator->cancel();
+
+    error::Error e(error::ErrorCode::OPERATION_ABORTED);
+    EXPECT_CALL(promiseHandlerMock_, onResolve(_)).Times(0);
+    EXPECT_CALL(promiseHandlerMock_, onReject(e));
+    queryChainPromise->reject(e);
+    ioService_.run();
+}
+
 }
 }
 }

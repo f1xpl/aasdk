@@ -115,6 +115,15 @@ void ControlServiceChannel::sendNavigationFocusResponse(const proto::messages::N
     this->send(std::move(message), std::move(promise));
 }
 
+void ControlServiceChannel::sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise)
+{
+    auto message(std::make_shared<messenger::Message>(channelId_, messenger::EncryptionType::PLAIN, messenger::MessageType::SPECIFIC));
+    message->insertPayload(messenger::MessageId(proto::ids::ControlMessage::PING_REQUEST).getData());
+    message->insertPayload(request);
+
+    this->send(std::move(message), std::move(promise));
+}
+
 void ControlServiceChannel::receive(IControlServiceChannelEventHandler::Pointer eventHandler)
 {
     auto receivePromise  = messenger::ReceivePromise::defer(strand_);
@@ -151,6 +160,9 @@ void ControlServiceChannel::messageHandler(messenger::Message::Pointer message, 
         break;
     case proto::ids::ControlMessage::NAVIGATION_FOCUS_REQUEST:
         this->handleNavigationFocusRequest(payload, std::move(eventHandler));
+        break;
+    case proto::ids::ControlMessage::PING_RESPONSE:
+        this->handlePingResponse(payload, std::move(eventHandler));
         break;
     default:
         AASDK_LOG(error) << "[ControlServiceChannel] message not handled: " << messageId.getId();
@@ -229,6 +241,19 @@ void ControlServiceChannel::handleNavigationFocusRequest(const common::DataConst
     if(request.ParseFromArray(payload.cdata, payload.size))
     {
         eventHandler->onNavigationFocusRequest(request);
+    }
+    else
+    {
+        eventHandler->onChannelError(error::Error(error::ErrorCode::PARSE_PAYLOAD));
+    }
+}
+
+void ControlServiceChannel::handlePingResponse(const common::DataConstBuffer& payload, IControlServiceChannelEventHandler::Pointer eventHandler)
+{
+    proto::messages::PingResponse response;
+    if(response.ParseFromArray(payload.cdata, payload.size))
+    {
+        eventHandler->onPingResponse(response);
     }
     else
     {

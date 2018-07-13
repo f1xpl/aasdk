@@ -22,6 +22,7 @@
 #include <aasdk_proto/AVChannelStartIndicationMessage.pb.h>
 #include <aasdk_proto/ChannelOpenRequestMessage.pb.h>
 #include <aasdk_proto/VideoFocusRequestMessage.pb.h>
+#include <aasdk_proto/AVChannelStopIndicationMessage.pb.h>
 #include <f1x/aasdk/Messenger/Timestamp.hpp>
 #include <f1x/aasdk/Common/Data.hpp>
 #include <f1x/aasdk/Error/Error.hpp>
@@ -46,6 +47,7 @@ public:
     virtual void onChannelOpenRequest(const proto::messages::ChannelOpenRequest& request) = 0;
     virtual void onAVChannelSetupRequest(const proto::messages::AVChannelSetupRequest& request) = 0;
     virtual void onAVChannelStartIndication(const proto::messages::AVChannelStartIndication& indication) = 0;
+    virtual void onAVChannelStopIndication(const proto::messages::AVChannelStopIndication& indication) = 0;
     virtual void onAVMediaWithTimestampIndication(messenger::Timestamp::ValueType, const common::DataConstBuffer& buffer) = 0;
     virtual void onAVMediaIndication(const common::DataConstBuffer& buffer) = 0;
     virtual void onVideoFocusRequest(const proto::messages::VideoFocusRequest& request) = 0;

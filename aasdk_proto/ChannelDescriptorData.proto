@@ -18,6 +18,8 @@
 
 syntax="proto3";
 
+option optimize_for=SPEED;
+
 import "SensorChannelData.proto";
 import "AVChannelData.proto";
 import "InputChannelData.proto";
@@ -25,8 +27,15 @@ import "AVInputChannelData.proto";
 import "BluetoothChannelData.proto";
 import "NavigationChannelData.proto";
 import "VendorExtensionChannelData.proto";
+import "WifiChannelData.proto";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.hr.proto.data;
+
+message MediaPlayBackChannel
+{
+    uint32 enabled = 1;
+   
+}
 
 message ChannelDescriptor
 {
@@ -37,5 +46,7 @@ message ChannelDescriptor
     AVInputChannel av_input_channel = 5;
     BluetoothChannel bluetooth_channel = 6;
     NavigationChannel navigation_channel = 8;
+    MediaPlayBackChannel mediainfo_channel = 9;
     VendorExtensionChannel vendor_extension_channel = 12;
+	WifiChannel wifi_channel=16;
 }

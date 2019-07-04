@@ -18,7 +18,7 @@
 
 syntax="proto2";
 
-package gb.xxy.trial.proto.ids;
+package f1x.aasdk.proto.ids;
 
 message BluetoothChannelMessage
 {

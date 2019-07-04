@@ -23,7 +23,7 @@ import "ButtonEventsData.proto";
 import "AbsoluteInputEventsData.proto";
 import "RelativeInputEventsData.proto";
 
-package gb.xxy.trial.proto.messages;
+package f1x.aasdk.proto.messages;
 
 message InputEventIndication
 {

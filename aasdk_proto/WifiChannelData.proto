@@ -22,7 +22,7 @@ option optimize_for=SPEED;
 
 
 
-package gb.xxy.hr.proto.data;
+package f1x.aasdk.proto.data;
 
 message WifiChannel
 {

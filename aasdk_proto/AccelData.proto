@@ -18,7 +18,7 @@
 
 syntax="proto2";
 
-package gb.xxy.trial.proto.data;
+package f1x.aasdk.proto.data;
 
 message Accel
 {

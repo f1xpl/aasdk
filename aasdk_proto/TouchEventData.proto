@@ -21,7 +21,7 @@ syntax="proto2";
 import "TouchLocationData.proto";
 import "TouchActionEnum.proto";
 
-package gb.xxy.trial.proto.data;
+package f1x.aasdk.proto.data;
 
 message TouchEvent
 {

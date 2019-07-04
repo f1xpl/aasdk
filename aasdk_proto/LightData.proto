@@ -21,7 +21,7 @@ syntax="proto2";
 import "HeadlightStatusEnum.proto";
 import "IndicatorStatusEnum.proto";
 
-package gb.xxy.trial.proto.data;
+package f1x.aasdk.proto.data;
 
 message Light
 {

@@ -20,7 +20,7 @@ syntax="proto2";
 
 import "AbsoluteInputEventData.proto";
 
-package gb.xxy.trial.proto.data;
+package f1x.aasdk.proto.data;
 
 message AbsoluteInputEvents
 {

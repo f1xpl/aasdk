@@ -23,7 +23,7 @@ import "AudioTypeEnum.proto";
 import "AudioConfigData.proto";
 import "VideoConfigData.proto";
 
-package gb.xxy.trial.proto.data;
+package f1x.aasdk.proto.data;
 
 message AVChannel
 {

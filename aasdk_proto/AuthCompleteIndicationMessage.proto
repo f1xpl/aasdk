@@ -20,7 +20,7 @@ syntax="proto2";
 
 import "StatusEnum.proto";
 
-package gb.xxy.trial.proto.messages;
+package f1x.aasdk.proto.messages;
 
 message AuthCompleteIndication
 {

@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "GPSLocationData.proto";
 import "CompassData.proto";
@@ -38,7 +38,7 @@ import "LightData.proto";
 import "AccelData.proto";
 import "GyroData.proto";
 
-package f1x.aasdk.proto.messages;
+package gb.xxy.trial.proto.messages;
 
 message SensorEventIndication
 {

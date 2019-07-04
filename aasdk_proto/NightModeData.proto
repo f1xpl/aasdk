@@ -18,7 +18,7 @@
 
 syntax="proto2";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.trial.proto.data;
 
 message NightMode
 {

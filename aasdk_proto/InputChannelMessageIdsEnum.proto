@@ -16,9 +16,9 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
-package f1x.aasdk.proto.ids;
+package gb.xxy.trial.proto.ids;
 
 message InputChannelMessage
 {
@@ -28,5 +28,6 @@ message InputChannelMessage
         INPUT_EVENT_INDICATION = 0x8001;
         BINDING_REQUEST = 0x8002;
         BINDING_RESPONSE = 0x8003;
+		
     }
 }

@@ -20,9 +20,7 @@ syntax="proto2";
 
 package gb.xxy.trial.proto.data;
 
-message VendorExtensionChannel
+message MediaInfoChannel
 {
-    required string name = 1;
-    repeated string package_white_list = 2;
-    optional bytes data = 3;
+   
 }

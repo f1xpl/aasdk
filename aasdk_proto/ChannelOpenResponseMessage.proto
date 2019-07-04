@@ -20,7 +20,7 @@ syntax="proto2";
 
 import "StatusEnum.proto";
 
-package f1x.aasdk.proto.messages;
+package gb.xxy.trial.proto.messages;
 
 message ChannelOpenResponse
 {

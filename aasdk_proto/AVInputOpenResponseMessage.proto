@@ -18,7 +18,7 @@
 
 syntax="proto2";
 
-package f1x.aasdk.proto.messages;
+package gb.xxy.trial.proto.messages;
 
 message AVInputOpenResponse
 {

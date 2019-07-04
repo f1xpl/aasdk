@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.trial.proto.data;
 
 message Speed
 {
-    int32 speed = 1;
-    bool cruise_engaged = 2;
-    bool cruise_set_speed = 3;
+    required int32 speed = 1;
+    optional bool cruise_engaged = 2;
+    optional bool cruise_set_speed = 3;
 }

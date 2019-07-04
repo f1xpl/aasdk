@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "SensorChannelData.proto";
 import "AVChannelData.proto";
@@ -25,17 +25,19 @@ import "AVInputChannelData.proto";
 import "BluetoothChannelData.proto";
 import "NavigationChannelData.proto";
 import "VendorExtensionChannelData.proto";
+import "MediaChannelData.proto";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.trial.proto.data;
 
 message ChannelDescriptor
 {
-    uint32 channel_id = 1;
-    SensorChannel sensor_channel = 2;
-    AVChannel av_channel = 3;
-    InputChannel input_channel = 4;
-    AVInputChannel av_input_channel = 5;
-    BluetoothChannel bluetooth_channel = 6;
-    NavigationChannel navigation_channel = 8;
-    VendorExtensionChannel vendor_extension_channel = 12;
+    required uint32 channel_id = 1;
+    optional SensorChannel sensor_channel = 2;
+    optional AVChannel av_channel = 3;
+    optional InputChannel input_channel = 4;
+    optional AVInputChannel av_input_channel = 5;
+    optional BluetoothChannel bluetooth_channel = 6;
+    optional NavigationChannel navigation_channel = 8;
+    optional MediaInfoChannel media_infoChannel = 9;
+    optional VendorExtensionChannel vendor_extension_channel = 12;
 }

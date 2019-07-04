@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "GearEnum.proto";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.trial.proto.data;
 
 message Gear
 {
-    enums.Gear.Enum gear = 1;
+    required enums.Gear.Enum gear = 1;
 }

@@ -16,14 +16,14 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
-package f1x.aasdk.proto.messages;
+package gb.xxy.trial.proto.messages;
 
 message AVInputOpenRequest
 {
-	bool open = 1;
-	bool anc = 2;
-	bool ec = 3;
-	int32 max_unacked = 4;
+	required bool open = 1;
+	required bool anc = 2;
+	required bool ec = 3;
+	required int32 max_unacked = 4;
 }

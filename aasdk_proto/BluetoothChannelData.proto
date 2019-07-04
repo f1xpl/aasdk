@@ -16,14 +16,14 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "BluetoothPairingMethodEnum.proto";
 
-package f1x.aasdk.proto.data;
+package gb.xxy.trial.proto.data;
 
 message BluetoothChannel
 {
-    string adapter_address = 1;
+    required string adapter_address = 1;
     repeated enums.BluetoothPairingMethod.Enum supported_pairing_methods = 2;
 }

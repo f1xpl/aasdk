@@ -16,9 +16,9 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
-package f1x.aasdk.proto.enums;
+package gb.xxy.trial.proto.enums;
 
 message VideoFocusReason
 {

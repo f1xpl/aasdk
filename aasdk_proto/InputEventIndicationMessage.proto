@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "TouchEventData.proto";
 import "ButtonEventsData.proto";
@@ -27,10 +27,10 @@ package f1x.aasdk.proto.messages;
 
 message InputEventIndication
 {
-    uint64 timestamp = 1;
-    int32 disp_channel = 2;
-    data.TouchEvent touch_event = 3;
-    data.ButtonEvents button_event = 4;
-    data.AbsoluteInputEvents absolute_input_event = 5;
-    data.RelativeInputEvents relative_input_event = 6;
+    required uint64 timestamp = 1;
+    optional int32 disp_channel = 2;
+    optional data.TouchEvent touch_event = 3;
+    optional data.ButtonEvents button_event = 4;
+    optional data.AbsoluteInputEvents absolute_input_event = 5;
+    optional data.RelativeInputEvents relative_input_event = 6;
 }

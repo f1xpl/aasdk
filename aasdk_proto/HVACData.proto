@@ -16,12 +16,12 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message HVAC
 {
-    int32 target_temperature = 1;
-    int32 current_temperature = 2;
+    required int32 target_temperature = 1;
+    required int32 current_temperature = 2;
 }

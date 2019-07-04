@@ -16,12 +16,12 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.messages;
 
 message ServiceDiscoveryRequest
 {
-    string device_name = 4;
-    string device_brand = 5;
+    required string device_name = 4;
+    required string device_brand = 5;
 }

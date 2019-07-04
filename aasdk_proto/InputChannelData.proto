@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "TouchConfigData.proto";
 
@@ -25,6 +25,6 @@ package f1x.aasdk.proto.data;
 message InputChannel
 {
     repeated uint32 supported_keycodes = 1;
-    TouchConfig touch_screen_config = 2;
-    TouchConfig touch_pad_config = 3;
+    optional TouchConfig touch_screen_config = 2;
+    optional TouchConfig touch_pad_config = 3;
 }

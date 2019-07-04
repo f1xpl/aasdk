@@ -16,11 +16,11 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message Diagnostics
 {
-    bytes diagnostics = 1;
+    required bytes diagnostics = 1;
 }

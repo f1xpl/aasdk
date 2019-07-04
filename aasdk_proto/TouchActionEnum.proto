@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.enums;
 
@@ -27,5 +27,7 @@ message TouchAction
         PRESS = 0;
         RELEASE = 1;
         DRAG = 2;
+        POINTER_DOWN=5;
+        POINTER_UP=6;
     }
 }

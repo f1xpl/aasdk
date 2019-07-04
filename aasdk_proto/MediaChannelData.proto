@@ -20,9 +20,7 @@ syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
-message Speed
+message MediaInfoChannel
 {
-    required int32 speed = 1;
-    optional bool cruise_engaged = 2;
-    optional bool cruise_set_speed = 3;
+   
 }

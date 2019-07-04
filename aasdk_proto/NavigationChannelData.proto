@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "NavigationImageOptionsData.proto";
 
@@ -24,7 +24,7 @@ package f1x.aasdk.proto.data;
 
 message NavigationChannel
 {
-    uint32 minimum_interval_ms = 1;
-    uint32 type = 2;
-    NavigationImageOptions image_options = 3;
+    required uint32 minimum_interval_ms = 1;
+    required uint32 type = 2;
+    required NavigationImageOptions image_options = 3;
 }

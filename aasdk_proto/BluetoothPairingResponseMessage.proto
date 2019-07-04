@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "BluetoothPairingStatusEnum.proto";
 
@@ -24,6 +24,6 @@ package f1x.aasdk.proto.messages;
 
 message BluetoothPairingResponse
 {
-    bool already_paired = 1;
-    enums.BluetoothPairingStatus.Enum status = 2;
+    required bool already_paired = 1;
+    required enums.BluetoothPairingStatus.Enum status = 2;
 }

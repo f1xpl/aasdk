@@ -16,17 +16,17 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message GPSLocation
 {
-    uint64 timestamp = 1;
-    int32 latitude = 2;
-    int32 longitude = 3;
-    uint32 accuracy = 4;
-    int32 altitude = 5;
-    int32 speed = 6;
-    int32 bearing = 7;
+    required uint64 timestamp = 1;
+    required int32 latitude = 2;
+    required int32 longitude = 3;
+    required uint32 accuracy = 4;
+    optional int32 altitude = 5;
+    optional int32 speed = 6;
+    optional int32 bearing = 7;
 }

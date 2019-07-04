@@ -16,11 +16,11 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message Passenger
 {
-    bool passenger_present = 1;
+    required bool passenger_present = 1;
 }

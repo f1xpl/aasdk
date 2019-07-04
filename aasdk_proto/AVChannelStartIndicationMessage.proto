@@ -16,12 +16,12 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.messages;
 
 message AVChannelStartIndication
 {
-    int32 session = 1;
-    uint32 config = 2;
+    required int32 session = 1;
+    required uint32 config = 2;
 }

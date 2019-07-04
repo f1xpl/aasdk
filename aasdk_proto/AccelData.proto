@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message Accel
 {
-    int32 acceleration_x = 1;
-    int32 acceleration_y = 2;
-    int32 acceleration_z = 3;
+    required int32 acceleration_x = 1;
+    required int32 acceleration_y = 2;
+    required int32 acceleration_z = 3;
 }

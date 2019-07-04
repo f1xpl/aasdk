@@ -1,3 +1,4 @@
+
 /*
 *  This file is part of aasdk library project.
 *  Copyright (C) 2018 f1x.studio (Michal Szwaj)
@@ -16,7 +17,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.enums;
 

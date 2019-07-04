@@ -16,14 +16,14 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message ButtonEvent
 {
-    uint32 scan_code = 1;
-    bool is_pressed = 2;
-    uint32 meta = 3;
-    bool long_press = 4;
+    required uint32 scan_code = 1;
+    required bool is_pressed = 2;
+    optional uint32 meta = 3;
+    optional bool long_press = 4;
 }

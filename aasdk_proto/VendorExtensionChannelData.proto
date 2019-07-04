@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message VendorExtensionChannel
 {
-    string name = 1;
+    required string name = 1;
     repeated string package_white_list = 2;
-    bytes data = 3;
+    optional bytes data = 3;
 }

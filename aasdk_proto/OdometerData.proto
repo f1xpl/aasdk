@@ -16,12 +16,12 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message Odometer
 {
-    int32 total_mileage = 1;
-    int32 trip_mileage = 2;
+    required int32 total_mileage = 1;
+    required int32 trip_mileage = 2;
 }

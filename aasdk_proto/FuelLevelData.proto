@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message FuelLevel
 {
-    int32 fuel_level = 1;
-    int32 range = 2;
-    bool low_fuel = 3;
+    required int32 fuel_level = 1;
+    required int32 range = 2;
+    required bool low_fuel = 3;
 }

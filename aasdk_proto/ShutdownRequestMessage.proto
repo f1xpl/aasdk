@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "ShutdownReasonEnum.proto";
 
@@ -24,5 +24,5 @@ package f1x.aasdk.proto.messages;
 
 message ShutdownRequest
 {
-    enums.ShutdownReason.Enum reason = 1;
+    required enums.ShutdownReason.Enum reason = 1;
 }

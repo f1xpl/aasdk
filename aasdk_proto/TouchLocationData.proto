@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message TouchLocation
 {
-	uint32 x = 1;
-	uint32 y = 2;
-	uint32 pointer_id = 3;
+	required uint32 x = 1;
+	required uint32 y = 2;
+	required uint32 pointer_id = 3;
 }

@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "ChannelDescriptorData.proto";
 
@@ -25,15 +25,15 @@ package f1x.aasdk.proto.messages;
 message ServiceDiscoveryResponse
 {
     repeated data.ChannelDescriptor channels = 1;
-    string head_unit_name = 2;
-    string car_model = 3;
-    string car_year = 4;
-    string car_serial = 5;
-    bool left_hand_drive_vehicle = 6;
-    string headunit_manufacturer = 7;
-    string headunit_model = 8;
-    string sw_build = 9;
-    string sw_version = 10;
-    bool can_play_native_media_during_vr = 11;
-    bool hide_clock = 12;
+    required string head_unit_name = 2;
+    required string car_model = 3;
+    required string car_year = 4;
+    required string car_serial = 5;
+    required bool left_hand_drive_vehicle = 6;
+    required string headunit_manufacturer = 7;
+    required string headunit_model = 8;
+    required string sw_build = 9;
+    required string sw_version = 10;
+    required bool can_play_native_media_during_vr = 11;
+    optional bool hide_clock = 12;
 }

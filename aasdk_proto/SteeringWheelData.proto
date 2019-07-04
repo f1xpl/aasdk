@@ -16,12 +16,12 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message SteeringWheel
 {
-    int32 steering_angle = 1;
-    int32 wheel_speed = 2;
+    required int32 steering_angle = 1;
+    required int32 wheel_speed = 2;
 }

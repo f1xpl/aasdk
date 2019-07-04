@@ -16,7 +16,7 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 import "AVStreamTypeEnum.proto";
 import "AudioTypeEnum.proto";
@@ -27,9 +27,9 @@ package f1x.aasdk.proto.data;
 
 message AVChannel
 {
-    enums.AVStreamType.Enum stream_type = 1;
-    enums.AudioType.Enum audio_type = 2;
+    required enums.AVStreamType.Enum stream_type = 1;
+    optional enums.AudioType.Enum audio_type = 2;
     repeated AudioConfig audio_configs = 3;
     repeated VideoConfig video_configs = 4;
-    bool available_while_in_call = 5;
+    optional bool available_while_in_call = 5;
 }

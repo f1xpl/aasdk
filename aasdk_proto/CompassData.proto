@@ -16,13 +16,13 @@
 *  along with aasdk. If not, see <http://www.gnu.org/licenses/>.
 */
 
-syntax="proto3";
+syntax="proto2";
 
 package f1x.aasdk.proto.data;
 
 message Compass
 {
-    int32 bearing =1;
-    int32 pitch = 2;
-    int32 roll = 3;
+    required int32 bearing =1;
+    required int32 pitch = 2;
+    required int32 roll = 3;
 }

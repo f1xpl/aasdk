@@ -108,7 +108,7 @@ void USBEndpoint::transfer(libusb_transfer *transfer, Promise::Pointer promise)
             // guarantee that endpoint will live until all transfers are finished
             if(self_ == nullptr)
             {
-                self_ = self;
+                self_ = std::move(self);
             }
 
             transfers_.insert(std::make_pair(transfer, std::move(promise)));

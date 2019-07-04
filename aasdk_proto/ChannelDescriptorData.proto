@@ -18,6 +18,8 @@
 
 syntax="proto2";
 
+option optimize_for=SPEED;
+
 import "SensorChannelData.proto";
 import "AVChannelData.proto";
 import "InputChannelData.proto";
@@ -26,6 +28,7 @@ import "BluetoothChannelData.proto";
 import "NavigationChannelData.proto";
 import "VendorExtensionChannelData.proto";
 import "MediaChannelData.proto";
+import "WifiChannelData.proto";
 
 package gb.xxy.trial.proto.data;
 
@@ -40,4 +43,5 @@ message ChannelDescriptor
     optional NavigationChannel navigation_channel = 8;
     optional MediaInfoChannel media_infoChannel = 9;
     optional VendorExtensionChannel vendor_extension_channel = 12;
+    optional WifiChannel wifi_channel=16;
 }

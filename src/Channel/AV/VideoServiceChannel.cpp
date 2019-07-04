@@ -101,6 +101,9 @@ void VideoServiceChannel::messageHandler(messenger::Message::Pointer message, IV
     case proto::ids::AVChannelMessage::START_INDICATION:
         this->handleStartIndication(payload, std::move(eventHandler));
         break;
+    case proto::ids::AVChannelMessage::STOP_INDICATION:
+        this->handleStopIndication(payload, std::move(eventHandler));
+        break;
     case proto::ids::AVChannelMessage::AV_MEDIA_WITH_TIMESTAMP_INDICATION:
         this->handleAVMediaWithTimestampIndication(payload, std::move(eventHandler));
         break;
@@ -139,6 +142,19 @@ void VideoServiceChannel::handleStartIndication(const common::DataConstBuffer& p
     if(indication.ParseFromArray(payload.cdata, payload.size))
     {
         eventHandler->onAVChannelStartIndication(indication);
+    }
+    else
+    {
+        eventHandler->onChannelError(error::Error(error::ErrorCode::PARSE_PAYLOAD));
+    }
+}
+
+void VideoServiceChannel::handleStopIndication(const common::DataConstBuffer& payload, IVideoServiceChannelEventHandler::Pointer eventHandler)
+{
+    proto::messages::AVChannelStopIndication indication;
+    if(indication.ParseFromArray(payload.cdata, payload.size))
+    {
+        eventHandler->onAVChannelStopIndication(indication);
     }
     else
     {

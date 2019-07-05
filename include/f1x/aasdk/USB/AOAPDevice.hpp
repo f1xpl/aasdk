@@ -31,7 +31,7 @@ namespace aasdk
 namespace usb
 {
 
-class AOAPDevice: public IAOAPDevice, boost::noncopyable
+class AOAPDevice: public IAOAPDevice, boost::asio::noncopyable
 {
 public:
     AOAPDevice(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, DeviceHandle handle, const libusb_interface_descriptor* interfaceDescriptor);

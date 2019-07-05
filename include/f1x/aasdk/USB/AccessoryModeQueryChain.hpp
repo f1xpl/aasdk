@@ -31,7 +31,7 @@ namespace usb
     
 class IAccessoryModeQueryFactory;
 
-class AccessoryModeQueryChain: public IAccessoryModeQueryChain, public std::enable_shared_from_this<AccessoryModeQueryChain>, boost::noncopyable
+class AccessoryModeQueryChain: public IAccessoryModeQueryChain, public std::enable_shared_from_this<AccessoryModeQueryChain>, boost::asio::noncopyable
 {
 public:
     AccessoryModeQueryChain(IUSBWrapper& usbWrapper,

@@ -32,7 +32,7 @@ namespace aasdk
 namespace messenger
 {
 
-class MessageOutStream: public IMessageOutStream, public std::enable_shared_from_this<MessageOutStream>, boost::noncopyable
+class MessageOutStream: public IMessageOutStream, public std::enable_shared_from_this<MessageOutStream>, boost::asio::noncopyable
 {
 public:
     MessageOutStream(boost::asio::io_service& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor);

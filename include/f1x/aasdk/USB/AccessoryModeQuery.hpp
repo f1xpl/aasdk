@@ -32,7 +32,7 @@ namespace aasdk
 namespace usb
 {
 
-class AccessoryModeQuery: public IAccessoryModeQuery, boost::noncopyable
+class AccessoryModeQuery: public IAccessoryModeQuery, boost::asio::noncopyable
 {
 public:
     AccessoryModeQuery(boost::asio::io_service& ioService, IUSBEndpoint::Pointer usbEndpoint);

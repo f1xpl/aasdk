@@ -31,7 +31,7 @@ namespace io
 {
 
 template<typename ResolveArgumentType, typename ErrorArgumentType = error::Error>
-class Promise: boost::noncopyable
+class Promise: boost::asio::noncopyable
 {
 public:
     typedef ResolveArgumentType ValueType;
@@ -113,7 +113,7 @@ private:
 };
 
 template<typename ErrorArgumentType>
-class Promise<void, ErrorArgumentType>: boost::noncopyable
+class Promise<void, ErrorArgumentType>: boost::asio::noncopyable
 {
 public:
     typedef ErrorArgumentType ErrorType;
@@ -194,7 +194,7 @@ private:
 };
 
 template<>
-class Promise<void, void>: boost::noncopyable
+class Promise<void, void>: boost::asio::noncopyable
 {
 public:
     typedef std::function<void()> ResolveHandler;
@@ -274,7 +274,7 @@ private:
 };
 
 template<typename ResolveArgumentType>
-class Promise<ResolveArgumentType, void>: boost::noncopyable
+class Promise<ResolveArgumentType, void>: boost::asio::noncopyable
 {
 public:
     typedef ResolveArgumentType ValueType;

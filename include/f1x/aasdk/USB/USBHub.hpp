@@ -32,7 +32,7 @@ namespace usb
 
 class IUSBWrapper;
 
-class USBHub: public IUSBHub, public std::enable_shared_from_this<USBHub>, boost::noncopyable
+class USBHub: public IUSBHub, public std::enable_shared_from_this<USBHub>, boost::asio::noncopyable
 {
 public:
     USBHub(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, IAccessoryModeQueryChainFactory& queryChainFactory);

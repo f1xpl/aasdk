@@ -31,7 +31,7 @@ namespace aasdk
 namespace transport
 {
 
-class Transport: public ITransport, public std::enable_shared_from_this<Transport>, boost::noncopyable
+class Transport: public ITransport, public std::enable_shared_from_this<Transport>, boost::asio::noncopyable
 {
 public:
     Transport(boost::asio::io_service& ioService);

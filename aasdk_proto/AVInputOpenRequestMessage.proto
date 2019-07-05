@@ -23,7 +23,7 @@ package f1x.aasdk.proto.messages;
 message AVInputOpenRequest
 {
 	required bool open = 1;
-	required bool anc = 2;
-	required bool ec = 3;
-	required int32 max_unacked = 4;
+	optional bool anc = 2;
+	optional bool ec = 3;
+	optional int32 max_unacked = 4;
 }

@@ -134,7 +134,7 @@ BOOST_FIXTURE_TEST_CASE(MessageInStream_ReceiveEncryptedMessage, MessageInStream
     EXPECT_CALL(transportMock_, receive(framePayload.size(), _)).WillOnce(SaveArg<1>(&framePayloadTransportPromise));
 
     common::Data decryptedPayload(500, 0x5F);
-    EXPECT_CALL(cryptorMock_, decrypt(_, _)).WillOnce(DoAll(SetArgReferee<0>(decryptedPayload), Return(decryptedPayload.size())));
+    EXPECT_CALL(cryptorMock_, decrypt(_, _)).WillOnce(testing::DoAll(SetArgReferee<0>(decryptedPayload), Return(decryptedPayload.size())));
     frameSizeTransportPromise->resolve(frameSize.getData());
 
     ioService_.run();

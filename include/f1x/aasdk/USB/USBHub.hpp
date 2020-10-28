@@ -32,7 +32,7 @@ namespace usb
 
 class IUSBWrapper;
 
-class USBHub: public IUSBHub, public std::enable_shared_from_this<USBHub>, boost::noncopyable
+class USBHub: public IUSBHub, public std::enable_shared_from_this<USBHub>
 {
 public:
     USBHub(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, IAccessoryModeQueryChainFactory& queryChainFactory);
@@ -58,6 +58,8 @@ private:
     static constexpr uint16_t cGoogleVendorId = 0x18D1;
     static constexpr uint16_t cAOAPId = 0x2D00;
     static constexpr uint16_t cAOAPWithAdbId = 0x2D01;
+
+    USBHub(const USBHub&) = delete;
 };
 
 }

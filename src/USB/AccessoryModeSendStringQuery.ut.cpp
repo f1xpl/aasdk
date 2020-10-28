@@ -62,7 +62,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeSendStringQuery_SendString, AccessoryModeSe
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     const std::string expectedQueryString = "aasdkTest";
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_SEND_STRING, 0, static_cast<uint16_t>(AccessoryModeSendStringType::MANUFACTURER), expectedQueryString.size() + 1));
@@ -88,7 +88,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeSendStringQuery_TransferError, AccessoryMod
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     const std::string expectedQueryString = "aasdkTest";
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_SEND_STRING, 0, static_cast<uint16_t>(AccessoryModeSendStringType::MANUFACTURER), expectedQueryString.size() + 1));
@@ -111,7 +111,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeSendStringQuery_RejectWhenInProgress, Acces
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     const std::string expectedQueryString = "aasdkTest";
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_SEND_STRING, 0, static_cast<uint16_t>(AccessoryModeSendStringType::MANUFACTURER), expectedQueryString.size() + 1));

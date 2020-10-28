@@ -57,7 +57,7 @@ BOOST_FIXTURE_TEST_CASE(TCPEndpoint_Receive, TCPEndpointUnitTest)
 
     common::DataBuffer buffer;
     ITCPWrapper::Handler handler;
-    EXPECT_CALL(tcpWrapperMock_, asyncRead(_, _, _)).WillOnce(DoAll(SaveArg<1>(&buffer), SaveArg<2>(&handler)));
+    EXPECT_CALL(tcpWrapperMock_, asyncRead(_, _, _)).WillOnce(testing::DoAll(SaveArg<1>(&buffer), SaveArg<2>(&handler)));
 
     common::Data actualData(100, 0);
     tcpEndpoint->receive(common::DataBuffer(actualData), std::move(promise_));
@@ -80,7 +80,7 @@ BOOST_FIXTURE_TEST_CASE(TCPEndpoint_ReceiveError, TCPEndpointUnitTest)
 
     common::DataBuffer buffer;
     ITCPWrapper::Handler handler;
-    EXPECT_CALL(tcpWrapperMock_, asyncRead(_, _, _)).WillOnce(DoAll(SaveArg<1>(&buffer), SaveArg<2>(&handler)));
+    EXPECT_CALL(tcpWrapperMock_, asyncRead(_, _, _)).WillOnce(testing::DoAll(SaveArg<1>(&buffer), SaveArg<2>(&handler)));
 
     common::Data actualData(100, 0);
     tcpEndpoint->receive(common::DataBuffer(actualData), std::move(promise_));

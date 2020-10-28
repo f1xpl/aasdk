@@ -31,7 +31,7 @@ namespace usb
     
 class IAccessoryModeQueryFactory;
 
-class AccessoryModeQueryChain: public IAccessoryModeQueryChain, public std::enable_shared_from_this<AccessoryModeQueryChain>, boost::noncopyable
+class AccessoryModeQueryChain: public IAccessoryModeQueryChain, public std::enable_shared_from_this<AccessoryModeQueryChain>
 {
 public:
     AccessoryModeQueryChain(IUSBWrapper& usbWrapper,
@@ -61,6 +61,8 @@ private:
     DeviceHandle handle_;    
     Promise::Pointer promise_;
     IAccessoryModeQuery::Pointer activeQuery_;
+
+    AccessoryModeQueryChain(const AccessoryModeQueryChain&) = delete;
 };
 
 }

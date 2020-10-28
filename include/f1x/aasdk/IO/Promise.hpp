@@ -31,7 +31,7 @@ namespace io
 {
 
 template<typename ResolveArgumentType, typename ErrorArgumentType = error::Error>
-class Promise: boost::noncopyable
+class Promise
 {
 public:
     typedef ResolveArgumentType ValueType;
@@ -110,10 +110,12 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
+
+    Promise(const Promise&) = delete;
 };
 
 template<typename ErrorArgumentType>
-class Promise<void, ErrorArgumentType>: boost::noncopyable
+class Promise<void, ErrorArgumentType>
 {
 public:
     typedef ErrorArgumentType ErrorType;
@@ -191,10 +193,12 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
+
+    Promise(const Promise&) = delete;
 };
 
 template<>
-class Promise<void, void>: boost::noncopyable
+class Promise<void, void>
 {
 public:
     typedef std::function<void()> ResolveHandler;
@@ -271,10 +275,12 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
+
+    Promise(const Promise&) = delete;
 };
 
 template<typename ResolveArgumentType>
-class Promise<ResolveArgumentType, void>: boost::noncopyable
+class Promise<ResolveArgumentType, void>
 {
 public:
     typedef ResolveArgumentType ValueType;
@@ -352,6 +358,8 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
+
+    Promise(const Promise&) = delete;
 };
 
 

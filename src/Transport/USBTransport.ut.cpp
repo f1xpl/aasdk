@@ -72,7 +72,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_ReceiveAtOnce, USBTransportUnitTest)
 
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer dataBuffer;
-    EXPECT_CALL(inEndpointMock_, bulkTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(inEndpointMock_, bulkTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
 
     USBTransport::Pointer transport(std::make_shared<USBTransport>(ioService_, aoapDevice_));
     transport->receive(receiveSize, std::move(receivePromise_));
@@ -101,7 +101,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_ReceiveInPieces, USBTransportUnitTest)
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer dataBuffer;
     EXPECT_CALL(inEndpointMock_, bulkTransfer(_, _, _)).Times(AtLeast(stepsCount))
-            .WillRepeatedly(DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
+            .WillRepeatedly(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
 
     common::Data expectedData(receiveSize, 0x5E);
     EXPECT_CALL(receivePromiseHandlerMock_, onResolve(expectedData)).Times(1);
@@ -127,7 +127,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_OnlyOneReceiveAtATime, USBTransportUnitTest
 
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer dataBuffer;
-    EXPECT_CALL(inEndpointMock_, bulkTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(inEndpointMock_, bulkTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<2>(&usbEndpointPromise)));
 
     USBTransport::Pointer transport(std::make_shared<USBTransport>(ioService_, aoapDevice_));
     transport->receive(stepSize, std::move(receivePromise_));
@@ -187,7 +187,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_Send, USBTransportUnitTest)
 {
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer buffer;
-    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     USBTransport::Pointer transport(std::make_shared<USBTransport>(ioService_, aoapDevice_));
     const common::Data expectedData(1000, 0x5E);
@@ -208,7 +208,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_SendInPieces, USBTransportUnitTest)
 {
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer buffer;
-    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).Times(2).WillRepeatedly(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).Times(2).WillRepeatedly(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     const common::Data expectedDataPiece1(1000, 0x5E);
     const common::Data expectedDataPiece2(2000, 0x5F);
@@ -239,7 +239,7 @@ BOOST_FIXTURE_TEST_CASE(USBTransport_OnlyOneSendAtATime, USBTransportUnitTest)
 {
     usb::IUSBEndpoint::Promise::Pointer usbEndpointPromise;
     common::DataBuffer buffer;
-    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).Times(2).WillRepeatedly(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(outEndpointMock_, bulkTransfer(_, _, _)).Times(2).WillRepeatedly(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
 
     USBTransport::Pointer transport(std::make_shared<USBTransport>(ioService_, aoapDevice_));
     const common::Data expectedData1(1000, 0x5E);

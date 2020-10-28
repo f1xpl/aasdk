@@ -51,7 +51,7 @@ protected:
     {
         common::DataBuffer buffer;
         IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-        EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+        EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
         EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_IN | USB_TYPE_VENDOR, ACC_REQ_GET_PROTOCOL, 0, 0, sizeof(protocolVersion)));
 
         AccessoryModeProtocolVersionQuery::Pointer query(std::make_shared<AccessoryModeProtocolVersionQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));
@@ -94,7 +94,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeProtocolVersionQuery_InvalidProtocolVersion
 
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_IN | USB_TYPE_VENDOR, ACC_REQ_GET_PROTOCOL, 0, 0, sizeof(protocolVersion)));
 
     AccessoryModeProtocolVersionQuery::Pointer query(std::make_shared<AccessoryModeProtocolVersionQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));
@@ -116,7 +116,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeProtocolVersionQuery_TransferError, Accesso
 
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_IN | USB_TYPE_VENDOR, ACC_REQ_GET_PROTOCOL, 0, 0, sizeof(protocolVersion)));
 
     AccessoryModeProtocolVersionQuery::Pointer query(std::make_shared<AccessoryModeProtocolVersionQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));
@@ -139,7 +139,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeProtocolVersionQuery_RejectWhenInProgress, 
 
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_IN | USB_TYPE_VENDOR, ACC_REQ_GET_PROTOCOL, 0, 0, sizeof(protocolVersion)));
 
     AccessoryModeProtocolVersionQuery::Pointer query(std::make_shared<AccessoryModeProtocolVersionQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));

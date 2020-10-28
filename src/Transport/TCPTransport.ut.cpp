@@ -66,7 +66,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_ReceiveAtOnce, TCPTransportUnitTest)
 
     tcp::ITCPEndpoint::Promise::Pointer tcpEndpointPromise;
     common::DataBuffer dataBuffer;
-    EXPECT_CALL(tcpEndpointMock_, receive(_, _)).WillOnce(DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
+    EXPECT_CALL(tcpEndpointMock_, receive(_, _)).WillOnce(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
 
     auto transport(std::make_shared<TCPTransport>(ioService_, tcpEndpoint_));
     transport->receive(receiveSize, std::move(receivePromise_));
@@ -95,7 +95,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_ReceiveInPieces, TCPTransportUnitTest)
     tcp::ITCPEndpoint::Promise::Pointer tcpEndpointPromise;
     common::DataBuffer dataBuffer;
     EXPECT_CALL(tcpEndpointMock_, receive(_, _)).Times(AtLeast(stepsCount))
-            .WillRepeatedly(DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
+            .WillRepeatedly(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
 
     common::Data expectedData(receiveSize, 0x5E);
     EXPECT_CALL(receivePromiseHandlerMock_, onResolve(expectedData)).Times(1);
@@ -121,7 +121,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_OnlyOneReceiveAtATime, TCPTransportUnitTest
 
     tcp::ITCPEndpoint::Promise::Pointer tcpEndpointPromise;
     common::DataBuffer dataBuffer;
-    EXPECT_CALL(tcpEndpointMock_, receive(_, _)).WillOnce(DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
+    EXPECT_CALL(tcpEndpointMock_, receive(_, _)).WillOnce(testing::DoAll(SaveArg<0>(&dataBuffer), SaveArg<1>(&tcpEndpointPromise)));
 
     auto transport(std::make_shared<TCPTransport>(ioService_, tcpEndpoint_));
     transport->receive(stepSize, std::move(receivePromise_));
@@ -181,7 +181,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_Send, TCPTransportUnitTest)
 {
     tcp::ITCPEndpoint::Promise::Pointer tcpEndpointPromise;
     common::DataConstBuffer buffer;
-    EXPECT_CALL(tcpEndpointMock_, send(_, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<1>(&tcpEndpointPromise)));
+    EXPECT_CALL(tcpEndpointMock_, send(_, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<1>(&tcpEndpointPromise)));
 
     auto transport(std::make_shared<TCPTransport>(ioService_, tcpEndpoint_));
     const common::Data expectedData(1000, 0x5E);
@@ -202,7 +202,7 @@ BOOST_FIXTURE_TEST_CASE(TCPTransport_OnlyOneSendAtATime, TCPTransportUnitTest)
 {
     tcp::ITCPEndpoint::Promise::Pointer tcpEndpointPromise;
     common::DataConstBuffer buffer;
-    EXPECT_CALL(tcpEndpointMock_, send(_, _)).Times(2).WillRepeatedly(DoAll(SaveArg<0>(&buffer), SaveArg<1>(&tcpEndpointPromise)));
+    EXPECT_CALL(tcpEndpointMock_, send(_, _)).Times(2).WillRepeatedly(testing::DoAll(SaveArg<0>(&buffer), SaveArg<1>(&tcpEndpointPromise)));
 
     auto transport(std::make_shared<TCPTransport>(ioService_, tcpEndpoint_));
     const common::Data expectedData1(1000, 0x5E);

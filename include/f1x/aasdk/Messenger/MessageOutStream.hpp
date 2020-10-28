@@ -32,7 +32,7 @@ namespace aasdk
 namespace messenger
 {
 
-class MessageOutStream: public IMessageOutStream, public std::enable_shared_from_this<MessageOutStream>, boost::noncopyable
+class MessageOutStream: public IMessageOutStream, public std::enable_shared_from_this<MessageOutStream>
 {
 public:
     MessageOutStream(boost::asio::io_service& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor);
@@ -57,7 +57,9 @@ private:
     size_t remainingSize_;
     SendPromise::Pointer promise_;
 
-        static constexpr size_t cMaxFramePayloadSize = 0x4000;
+    static constexpr size_t cMaxFramePayloadSize = 0x4000;
+
+    MessageOutStream(const MessageOutStream&) = delete;
 };
 
 }

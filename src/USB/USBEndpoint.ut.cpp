@@ -142,7 +142,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_BulkTransfer, USBEndpointUnitTest)
     common::Data data(1000, 0);
     common::DataBuffer buffer(data);
     EXPECT_CALL(usbWrapperMock_, fillBulkTransfer(&transfer, _, endpointAddress, buffer.data, buffer.size, _, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
     EXPECT_CALL(usbWrapperMock_, submitTransfer(&transfer));
 
     usbEndpoint->bulkTransfer(common::DataBuffer(data), 0, std::move(promise_));
@@ -180,7 +180,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_MultipleBulkTransfers, USBEndpointUnitTest)
         common::Data data(10000 + attemptsCount, 0);
         common::DataBuffer buffer(data);
         EXPECT_CALL(usbWrapperMock_, fillBulkTransfer(&transfer, _, endpointAddress, buffer.data, buffer.size, _, _, _))
-                .WillOnce(DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
+                .WillOnce(testing::DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
         EXPECT_CALL(promiseHandlerMock_, onResolve(buffer.size)).Times(1);
 
         transfer.actual_length = 0;
@@ -213,7 +213,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_ControlTransfer, USBEndpointUnitTest)
     common::Data data(100, 0);
     common::DataBuffer buffer(data);
     EXPECT_CALL(usbWrapperMock_, fillControlTransfer(&transfer, _, buffer.data, _, _, _))
-            .WillOnce(DoAll(SaveArg<3>(&transferCallback), SaveArg<4>(&transfer.user_data)));
+            .WillOnce(testing::DoAll(SaveArg<3>(&transferCallback), SaveArg<4>(&transfer.user_data)));
     EXPECT_CALL(usbWrapperMock_, submitTransfer(&transfer));
 
     usbEndpoint->controlTransfer(common::DataBuffer(data), 0, std::move(promise_));
@@ -242,7 +242,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_InterruptTransfer, USBEndpointUnitTest)
     common::Data data(150, 0);
     common::DataBuffer buffer(data);
     EXPECT_CALL(usbWrapperMock_, fillInterruptTransfer(&transfer, _, endpointAddress, buffer.data, buffer.size, _, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
     EXPECT_CALL(usbWrapperMock_, submitTransfer(&transfer));
 
     usbEndpoint->interruptTransfer(common::DataBuffer(data), 0, std::move(promise_));
@@ -271,7 +271,7 @@ BOOST_FIXTURE_TEST_CASE(USBEndpoint_BulkTransferFailed, USBEndpointUnitTest)
     common::Data data(10, 0);
     common::DataBuffer buffer(data);
     EXPECT_CALL(usbWrapperMock_, fillBulkTransfer(&transfer, _, endpointAddress, buffer.data, buffer.size, _, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&transferCallback), SaveArg<6>(&transfer.user_data)));
     EXPECT_CALL(usbWrapperMock_, submitTransfer(&transfer));
 
     usbEndpoint->bulkTransfer(common::DataBuffer(data), 0, std::move(promise_));

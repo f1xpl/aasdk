@@ -77,7 +77,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_QueryDevice, USBHubUnitTest)
     EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
 
     USBHub::Pointer usbHub(std::make_shared<USBHub>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
     usbHub->start(std::move(promise_));
@@ -89,8 +89,8 @@ BOOST_FIXTURE_TEST_CASE(USBHub_QueryDevice, USBHubUnitTest)
     connectedDeviceDescriptor.idVendor = 123;
     connectedDeviceDescriptor.idProduct = 456;
 
-    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
-    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
     EXPECT_CALL(queryChainFactoryMock_, create()).WillOnce(Return(queryChain_));
 
     IAccessoryModeQueryChain::Promise::Pointer queryChainPromise;
@@ -113,7 +113,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_AOAPDeviceConnected, USBHubUnitTest)
     EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
 
     USBHub::Pointer usbHub(std::make_shared<USBHub>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
     usbHub->start(std::move(promise_));
@@ -125,8 +125,8 @@ BOOST_FIXTURE_TEST_CASE(USBHub_AOAPDeviceConnected, USBHubUnitTest)
     connectedDeviceDescriptor.idVendor = cGoogleVendorId;
     connectedDeviceDescriptor.idProduct = cAOAPWithAdbId;
 
-    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
-    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
     EXPECT_CALL(promiseHandlerMock_, onResolve(deviceHandle_));
     EXPECT_CALL(promiseHandlerMock_, onReject(_)).Times(0);
 
@@ -144,7 +144,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_GetDeviceDescriptorFailed, USBHubUnitTest)
     EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
 
     USBHub::Pointer usbHub(std::make_shared<USBHub>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
     usbHub->start(std::move(promise_));
@@ -153,7 +153,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_GetDeviceDescriptorFailed, USBHubUnitTest)
     ioService_.reset();
 
     libusb_device_descriptor connectedDeviceDescriptor = {0};
-    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(1)));
+    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(1)));
 
     hotplugCallback_(nullptr, device_, LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, userData);
     ioService_.run();
@@ -171,7 +171,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_OpenDeviceFailed, USBHubUnitTest)
     EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
 
     USBHub::Pointer usbHub(std::make_shared<USBHub>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
     usbHub->start(std::move(promise_));
@@ -180,8 +180,8 @@ BOOST_FIXTURE_TEST_CASE(USBHub_OpenDeviceFailed, USBHubUnitTest)
     ioService_.reset();
 
     libusb_device_descriptor connectedDeviceDescriptor = {0};
-    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
-    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(DoAll(SetArgReferee<1>(deviceHandle_), Return(1)));
+    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, open(device_, _)).WillOnce(testing::DoAll(SetArgReferee<1>(deviceHandle_), Return(1)));
 
     hotplugCallback_(nullptr, device_, LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, userData);
     ioService_.run();
@@ -199,7 +199,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_CancelAllQueryChains, USBHubUnitTest)
     EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
-            .WillOnce(DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
+            .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
 
     USBHub::Pointer usbHub(std::make_shared<USBHub>(usbWrapperMock_, ioService_, queryChainFactoryMock_));
     usbHub->start(std::move(promise_));
@@ -211,8 +211,8 @@ BOOST_FIXTURE_TEST_CASE(USBHub_CancelAllQueryChains, USBHubUnitTest)
     connectedDeviceDescriptor.idVendor = 123;
     connectedDeviceDescriptor.idProduct = 456;
 
-    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).Times(2).WillRepeatedly(DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
-    EXPECT_CALL(usbWrapperMock_, open(device_, _)).Times(2).WillRepeatedly(DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, getDeviceDescriptor(device_, _)).Times(2).WillRepeatedly(testing::DoAll(SetArgReferee<1>(connectedDeviceDescriptor), Return(0)));
+    EXPECT_CALL(usbWrapperMock_, open(device_, _)).Times(2).WillRepeatedly(testing::DoAll(SetArgReferee<1>(deviceHandle_), Return(0)));
     EXPECT_CALL(queryChainFactoryMock_, create()).Times(2).WillRepeatedly(Return(queryChain_));
 
     IAccessoryModeQueryChain::Promise::Pointer queryChainPromise[2];

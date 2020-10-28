@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <boost/noncopyable.hpp>
 #include <memory>
 #include <google/protobuf/message.h>
 #include <f1x/aasdk/Common/Data.hpp>
@@ -34,7 +33,7 @@ namespace aasdk
 namespace messenger
 {
 
-class Message: boost::noncopyable
+class Message
 {
 public:
     typedef std::shared_ptr<Message> Pointer;
@@ -59,6 +58,8 @@ private:
     EncryptionType encryptionType_;
     MessageType type_;
     common::Data payload_;
+
+    Message(const Message&) = delete;
 };
 
 }

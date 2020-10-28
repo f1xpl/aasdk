@@ -32,8 +32,7 @@ namespace usb
 {
 
 class USBEndpoint: public IUSBEndpoint,
-        public std::enable_shared_from_this<USBEndpoint>,
-        boost::noncopyable
+        public std::enable_shared_from_this<USBEndpoint>
 {
 public:
     USBEndpoint(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, DeviceHandle handle, uint8_t endpointAddress = 0x00);
@@ -58,6 +57,8 @@ private:
     uint8_t endpointAddress_;
     Transfers transfers_;
     std::shared_ptr<USBEndpoint> self_;
+
+    USBEndpoint(const USBEndpoint&) = delete;
 };
 
 }

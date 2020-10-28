@@ -67,7 +67,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_QueryAOAPDevice, AccessoryModeQu
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
     ioService_.run();
     ioService_.reset();
@@ -121,7 +121,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_ProtocolVersionQueryFailed, Acce
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -142,7 +142,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_ManufacturerQueryFailed, Accesso
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -168,7 +168,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_ModelQueryFailed, AccessoryModeQ
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -199,7 +199,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_DescriptionQueryFailed, Accessor
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -235,7 +235,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_VersionQueryFailed, AccessoryMod
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -276,7 +276,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_URIQueryFailed, AccessoryModeQue
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -322,7 +322,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_SerialQueryFailed, AccessoryMode
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -373,7 +373,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_StartQueryFailed, AccessoryModeQ
 
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();
@@ -428,7 +428,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeQueryChain_Cancel, AccessoryModeQueryChainU
     IUSBEndpoint::Pointer usbEndpoint;
     IAccessoryModeQuery::Promise::Pointer queryPromise;
     EXPECT_CALL(*queryMock_, start(_)).WillRepeatedly(SaveArg<0>(&queryPromise));
-    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
+    EXPECT_CALL(queryFactoryMock_, createQuery(AccessoryModeQueryType::PROTOCOL_VERSION, _)).WillOnce(testing::DoAll(SaveArg<1>(&usbEndpoint), Return(queryMock_)));
     queryChain->start(deviceHandle_, std::move(promise_));
 
     ioService_.run();

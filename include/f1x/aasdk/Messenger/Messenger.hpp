@@ -33,7 +33,7 @@ namespace aasdk
 namespace messenger
 {
 
-class Messenger: public IMessenger, public std::enable_shared_from_this<Messenger>, boost::noncopyable
+class Messenger: public IMessenger, public std::enable_shared_from_this<Messenger>
 {
 public:
     Messenger(boost::asio::io_service& ioService, IMessageInStream::Pointer messageInStream, IMessageOutStream::Pointer messageOutStream);
@@ -58,6 +58,8 @@ private:
     ChannelReceivePromiseQueue channelReceivePromiseQueue_;
     ChannelReceiveMessageQueue channelReceiveMessageQueue_;
     ChannelSendQueue channelSendPromiseQueue_;
+
+    Messenger(const Messenger&) = delete;
 };
 
 }

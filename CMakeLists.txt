@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5.1)
-project(aasdk CXX)
+project(aasdk LANGUAGES CXX)
+
+option(AASDK_TEST "Build Unit Test Cases" OFF)
+option(AASDK_CODE_COVERAGE "Build with Code Coverage" OFF)
 
 set(base_directory ${CMAKE_CURRENT_SOURCE_DIR})
 set(sources_directory ${base_directory}/src)
@@ -7,17 +10,13 @@ set(sources_directory ${base_directory}/src)
 set(include_directory ${base_directory}/include)
 set(include_ut_directory ${base_directory}/include_ut)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${base_directory}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${base_directory}/lib)
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${base_directory}/bin)
-set(EXECUTABLE_OUTPUT_PATH ${base_directory}/bin)
-
 SET(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake_modules/")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -fPIC -Wall -pedantic")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
-set(CMAKE_CXX_FLAGS_RELEASE "-g -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -Wall -pedantic")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
@@ -28,10 +27,6 @@ add_definitions(-DBOOST_ALL_DYN_LINK)
 if(WIN32)
     set(WINSOCK2_LIBRARIES "ws2_32")
 endif(WIN32)
-
-if(AASDK_TEST)
-    include(ExternalGtest)
-endif(AASDK_TEST)
 
 add_subdirectory(aasdk_proto)
 
@@ -66,26 +61,42 @@ add_library(aasdk SHARED
 add_dependencies(aasdk aasdk_proto)
 target_link_libraries(aasdk
                         aasdk_proto
-                        ${Boost_LIBRARIES}
+                        Boost::system
+                        Boost::log
+                        protobuf::libprotobuf-lite
+                        OpenSSL::SSL
+                        OpenSSL::Crypto
                         ${LIBUSB_1_LIBRARIES}
-                        ${PROTOBUF_LIBRARIES}
-                        ${OPENSSL_LIBRARIES}
                         ${WINSOCK2_LIBRARIES})
 
+install(TARGETS aasdk LIBRARY DESTINATION lib)
+install(DIRECTORY include/f1x/aasdk DESTINATION include/f1x)
+
 if(AASDK_TEST)
+    include(ExternalGtest)
     add_executable(aasdk_ut
                     ${tests_source_files}
                     ${tests_include_files})
 
-    add_dependencies(aasdk_ut aasdk)
+    add_dependencies(aasdk_ut aasdk googletest)
+
+    target_include_directories(aasdk_ut PUBLIC ${EXT_STAGING_DIR}/include)
+    target_link_directories(aasdk_ut PUBLIC ${EXT_STAGING_DIR}/lib)
     target_link_libraries(aasdk_ut
                             aasdk
-                            ${GMOCK_LIBRARY_PATH}
-                            ${GTEST_LIBRARY_PATH})
+                            Boost::unit_test_framework
+                            gmock${GTEST_DEBUG_POSTFIX}
+                            gmock_main${GTEST_DEBUG_POSTFIX}
+                            gtest${GTEST_DEBUG_POSTFIX}
+                            gtest_main${GTEST_DEBUG_POSTFIX}
+                            Threads::Threads)
 
     if(AASDK_CODE_COVERAGE)
         include(CodeCoverage)
         append_coverage_compiler_flags()
         setup_target_for_coverage(NAME aasdk_coverage EXECUTABLE aasdk_ut DEPENDENCIES aasdk_ut)
     endif(AASDK_CODE_COVERAGE)
+
+    install(TARGETS aasdk_ut LIBRARY DESTINATION share/aasdk)
+    
 endif(AASDK_TEST)

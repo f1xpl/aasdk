@@ -62,7 +62,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeStartQuery_Start, AccessoryModeStartQueryUn
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_START, 0, 0, 0));
 
     AccessoryModeStartQuery::Pointer query(std::make_shared<AccessoryModeStartQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));
@@ -81,7 +81,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeStartQuery_TransferError, AccessoryModeStar
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_START, 0, 0, 0));
 
     AccessoryModeStartQuery::Pointer query(std::make_shared<AccessoryModeStartQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));
@@ -101,7 +101,7 @@ BOOST_FIXTURE_TEST_CASE(AccessoryModeStartQuery_RejectWhenInProgress, AccessoryM
 {
     common::DataBuffer buffer;
     IUSBEndpoint::Promise::Pointer usbEndpointPromise;
-    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
+    EXPECT_CALL(*usbEndpointMock_, controlTransfer(_, _, _)).WillOnce(testing::DoAll(SaveArg<0>(&buffer), SaveArg<2>(&usbEndpointPromise)));
     EXPECT_CALL(usbWrapperMock_, fillControlSetup(NotNull(), LIBUSB_ENDPOINT_OUT | USB_TYPE_VENDOR, ACC_REQ_START, 0, 0, 0));
 
     AccessoryModeStartQuery::Pointer query(std::make_shared<AccessoryModeStartQuery>(ioService_, usbWrapperMock_, usbEndpointMock_));

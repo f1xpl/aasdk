@@ -109,7 +109,7 @@ BOOST_FIXTURE_TEST_CASE(MessageOutStream_SendEncryptedMessage, MessageOutStreamU
     common::Data encryptedData(expectedData.begin(), expectedData.begin() + FrameHeader::getSizeOf() + FrameSize::getSizeOf(FrameSizeType::SHORT));
     encryptedData.insert(encryptedData.end(), encryptedPayload.begin(), encryptedPayload.end());
     transport::ITransport::SendPromise::Pointer transportSendPromise;
-    EXPECT_CALL(cryptorMock_, encrypt(_, _)).WillOnce(DoAll(SetArgReferee<0>(encryptedData), Return(encryptedPayload.size())));
+    EXPECT_CALL(cryptorMock_, encrypt(_, _)).WillOnce(testing::DoAll(SetArgReferee<0>(encryptedData), Return(encryptedPayload.size())));
     EXPECT_CALL(transportMock_, send(expectedData, _)).WillOnce(SaveArg<1>(&transportSendPromise));
 
     Message::Pointer message(std::make_shared<Message>(ChannelId::VIDEO, EncryptionType::ENCRYPTED, MessageType::CONTROL));

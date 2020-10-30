@@ -44,7 +44,7 @@ uint16_t MessageId::getId() const
 
 common::Data MessageId::getData() const
 {
-    const MessageId messageIdBig = boost::endian::native_to_big(id_);
+    const unsigned short messageIdBig = boost::endian::native_to_big(id_);
     const common::DataConstBuffer messageIdBigBuffer(&messageIdBig, sizeof(messageIdBig));
     return common::createData(messageIdBigBuffer);
 }

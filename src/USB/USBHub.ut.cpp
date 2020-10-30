@@ -74,7 +74,7 @@ protected:
 BOOST_FIXTURE_TEST_CASE(USBHub_QueryDevice, USBHubUnitTest)
 {
     void* userData = nullptr;
-    EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+    EXPECT_CALL(usbWrapperMock_, hotPlugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
             .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
@@ -110,7 +110,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_QueryDevice, USBHubUnitTest)
 BOOST_FIXTURE_TEST_CASE(USBHub_AOAPDeviceConnected, USBHubUnitTest)
 {
     void* userData = nullptr;
-    EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+    EXPECT_CALL(usbWrapperMock_, hotPlugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
             .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
@@ -141,7 +141,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_AOAPDeviceConnected, USBHubUnitTest)
 BOOST_FIXTURE_TEST_CASE(USBHub_GetDeviceDescriptorFailed, USBHubUnitTest)
 {
     void* userData = nullptr;
-    EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+    EXPECT_CALL(usbWrapperMock_, hotPlugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
             .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
@@ -168,7 +168,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_GetDeviceDescriptorFailed, USBHubUnitTest)
 BOOST_FIXTURE_TEST_CASE(USBHub_OpenDeviceFailed, USBHubUnitTest)
 {
     void* userData = nullptr;
-    EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+    EXPECT_CALL(usbWrapperMock_, hotPlugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
             .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));
@@ -196,7 +196,7 @@ BOOST_FIXTURE_TEST_CASE(USBHub_OpenDeviceFailed, USBHubUnitTest)
 BOOST_FIXTURE_TEST_CASE(USBHub_CancelAllQueryChains, USBHubUnitTest)
 {
     void* userData = nullptr;
-    EXPECT_CALL(usbWrapperMock_, hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+    EXPECT_CALL(usbWrapperMock_, hotPlugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                          LIBUSB_HOTPLUG_MATCH_ANY, _, _))
             .WillOnce(testing::DoAll(SaveArg<5>(&hotplugCallback_), SaveArg<6>(&userData), Return(hotplugCallbackHandle_)));

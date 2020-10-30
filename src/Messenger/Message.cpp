@@ -32,7 +32,7 @@ Message::Message(ChannelId channelId, EncryptionType encryptionType, MessageType
 {
 }
 
-Message::Message(Message&& other)
+Message::Message(Message&& other) noexcept
     : channelId_(other.channelId_)
     , encryptionType_(other.encryptionType_)
     , type_(other.type_)
@@ -41,7 +41,7 @@ Message::Message(Message&& other)
 
 }
 
-Message& Message::operator=(Message&& other)
+Message& Message::operator=(Message&& other) noexcept
 {
     channelId_ = std::move(other.channelId_);
     encryptionType_ = std::move(other.encryptionType_);

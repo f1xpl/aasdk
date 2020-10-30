@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 #include <aasdk_proto/ChannelOpenRequestMessage.pb.h>
 #include <aasdk_proto/BindingRequestMessage.pb.h>
 

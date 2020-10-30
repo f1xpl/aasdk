@@ -32,8 +32,8 @@ class FrameSize
 {
 public:
     FrameSize(size_t frameSize, size_t totalSize);
-    FrameSize(size_t frameSize);
-    FrameSize(const common::DataConstBuffer& buffer);
+    explicit FrameSize(size_t frameSize);
+    explicit FrameSize(const common::DataConstBuffer& buffer);
 
     common::Data getData() const;
     size_t getSize() const;

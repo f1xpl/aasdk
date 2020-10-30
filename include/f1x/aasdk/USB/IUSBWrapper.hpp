@@ -34,7 +34,7 @@ typedef std::shared_ptr<libusb_device_handle> DeviceHandle;
 typedef std::list<libusb_device*> DeviceList;
 typedef std::shared_ptr<DeviceList> DeviceListHandle;
 typedef std::shared_ptr<libusb_config_descriptor> ConfigDescriptorHandle;
-typedef std::shared_ptr<libusb_hotplug_callback_handle> HotplugCallbackHandle;
+typedef std::shared_ptr<libusb_hotplug_callback_handle> HotPlugCallbackHandle;
 
 class IUSBWrapper
 {
@@ -73,7 +73,7 @@ public:
         uint16_t wLength) = 0;
     virtual int getDeviceDescriptor(libusb_device *dev, libusb_device_descriptor &desc) = 0;
     virtual void handleEvents() = 0;
-    virtual HotplugCallbackHandle hotplugRegisterCallback(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
+    virtual HotPlugCallbackHandle hotPlugRegisterCallback(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
                                                           libusb_hotplug_callback_fn cb_fn, void *user_data) = 0;
     virtual libusb_transfer* allocTransfer(int iso_packets) = 0;
 };

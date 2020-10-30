@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace f1x
 {
@@ -32,7 +32,7 @@ namespace messenger
 enum class MessageType
 {
     SPECIFIC = 0,
-    CONTROL = 1 << 2
+    CONTROL = 1u << 2u
 };
 
 }

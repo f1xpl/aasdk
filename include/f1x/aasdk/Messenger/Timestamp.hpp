@@ -32,8 +32,8 @@ class Timestamp
 public:
     typedef uint64_t ValueType;
 
-    Timestamp(ValueType stamp);
-    Timestamp(const common::DataConstBuffer& buffer);
+    explicit Timestamp(ValueType stamp);
+    explicit Timestamp(const common::DataConstBuffer& buffer);
 
     common::Data getData() const;
     ValueType getValue() const;

@@ -28,7 +28,7 @@ namespace messenger
 enum class EncryptionType
 {
     PLAIN,
-    ENCRYPTED = 1 << 3
+    ENCRYPTED = 1u << 3u
 };
 
 }

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 #include <aasdk_proto/AVChannelSetupRequestMessage.pb.h>
 #include <aasdk_proto/AVChannelStartIndicationMessage.pb.h>
 #include <aasdk_proto/AVChannelStopIndicationMessage.pb.h>

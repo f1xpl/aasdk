@@ -46,7 +46,7 @@ public:
     void sendAudioFocusResponse(const proto::messages::AudioFocusResponse& response, SendPromise::Pointer promise) override;
     void sendShutdownRequest(const proto::messages::ShutdownRequest& request, SendPromise::Pointer promise) override;
     void sendShutdownResponse(const proto::messages::ShutdownResponse& response, SendPromise::Pointer promise) override;
-    void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse& respons, SendPromise::Pointer promisee) override;
+    void sendNavigationFocusResponse(const proto::messages::NavigationFocusResponse&response, SendPromise::Pointer promise) override;
     void sendPingRequest(const proto::messages::PingRequest& request, SendPromise::Pointer promise) override;
 
 private:

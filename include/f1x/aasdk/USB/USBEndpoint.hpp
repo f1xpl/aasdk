@@ -36,6 +36,7 @@ class USBEndpoint: public IUSBEndpoint,
 {
 public:
     USBEndpoint(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, DeviceHandle handle, uint8_t endpointAddress = 0x00);
+    USBEndpoint(const USBEndpoint&) = delete;
 
     void controlTransfer(common::DataBuffer buffer, uint32_t timeout, Promise::Pointer promise) override;
     void bulkTransfer(common::DataBuffer buffer, uint32_t timeout, Promise::Pointer promise) override;
@@ -57,8 +58,6 @@ private:
     uint8_t endpointAddress_;
     Transfers transfers_;
     std::shared_ptr<USBEndpoint> self_;
-
-    USBEndpoint(const USBEndpoint&) = delete;
 };
 
 }

@@ -39,8 +39,9 @@ public:
     typedef std::shared_ptr<Message> Pointer;
 
     Message(ChannelId channelId, EncryptionType encryptionType, MessageType type);
-    Message(Message&& other);
-    Message& operator=(Message&& other);
+    Message(Message&& other) noexcept ;
+    Message(const Message&) = delete;
+    Message& operator=(Message&& other) noexcept ;
 
     ChannelId getChannelId() const;
     EncryptionType getEncryptionType() const;
@@ -58,8 +59,6 @@ private:
     EncryptionType encryptionType_;
     MessageType type_;
     common::Data payload_;
-
-    Message(const Message&) = delete;
 };
 
 }

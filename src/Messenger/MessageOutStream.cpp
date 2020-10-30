@@ -53,7 +53,7 @@ void MessageOutStream::stream(Message::Pointer message, SendPromise::Pointer pro
         {
             offset_ = 0;
             remainingSize_ = message_->getPayload().size();
-            this->streamSplittedMessage();
+            this->streamSplitMessage();
         }
         else
         {
@@ -76,7 +76,7 @@ void MessageOutStream::stream(Message::Pointer message, SendPromise::Pointer pro
     });
 }
 
-void MessageOutStream::streamSplittedMessage()
+void MessageOutStream::streamSplitMessage()
 {
     try
     {
@@ -99,7 +99,7 @@ void MessageOutStream::streamSplittedMessage()
             transportPromise->then([this, self = this->shared_from_this(), size]() mutable {
                     offset_ += size;
                     remainingSize_ -= size;
-                    this->streamSplittedMessage();
+                    this->streamSplitMessage();
                 },
                 [this, self = this->shared_from_this()](const error::Error& e) mutable {
                     this->reset();

@@ -39,19 +39,24 @@ USBHub::USBHub(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, IAcc
 void USBHub::start(Promise::Pointer promise)
 {
     strand_.dispatch([this, self = this->shared_from_this(), promise = std::move(promise)]() {
-        if(hotplugPromise_ != nullptr)
+        if(hotPlugPromise_ != nullptr)
         {
-            hotplugPromise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
-            hotplugPromise_.reset();
+          hotPlugPromise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
+          hotPlugPromise_.reset();
         }
 
-        hotplugPromise_ = std::move(promise);
+        hotPlugPromise_ = std::move(promise);
 
         if(self_ == nullptr)
         {
             self_ = this->shared_from_this();
-            hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-                                                                 LIBUSB_HOTPLUG_MATCH_ANY, reinterpret_cast<libusb_hotplug_callback_fn>(&USBHub::hotplugEventsHandler), reinterpret_cast<void*>(this));
+            hotPlugHandle_ = usbWrapper_.hotPlugRegisterCallback(
+                LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS,
+                LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
+                LIBUSB_HOTPLUG_MATCH_ANY,
+                reinterpret_cast<libusb_hotplug_callback_fn>(
+                    &USBHub::hotPlugEventsHandler),
+                reinterpret_cast<void *>(this));
         }
     });
 }
@@ -59,27 +64,27 @@ void USBHub::start(Promise::Pointer promise)
 void USBHub::cancel()
 {
     strand_.dispatch([this, self = this->shared_from_this()]() mutable {
-        if(hotplugPromise_ != nullptr)
+        if(hotPlugPromise_ != nullptr)
         {
-            hotplugPromise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
-            hotplugPromise_.reset();
+          hotPlugPromise_->reject(error::Error(error::ErrorCode::OPERATION_ABORTED));
+          hotPlugPromise_.reset();
         }
 
         std::for_each(queryChainQueue_.begin(), queryChainQueue_.end(), std::bind(&IAccessoryModeQueryChain::cancel, std::placeholders::_1));
 
         if(self_ != nullptr)
         {
-            hotplugHandle_.reset();
+          hotPlugHandle_.reset();
             self_.reset();
         }
     });
 }
 
-int USBHub::hotplugEventsHandler(libusb_context* usbContext, libusb_device* device, libusb_hotplug_event event, void* userData)
+int USBHub::hotPlugEventsHandler(libusb_context* usbContext, libusb_device* device, libusb_hotplug_event event, void*uerData)
 {
     if(event == LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED)
     {
-        auto self = reinterpret_cast<USBHub*>(userData)->shared_from_this();
+        auto self = reinterpret_cast<USBHub*>(uerData)->shared_from_this();
         self->strand_.dispatch(std::bind(&USBHub::handleDevice, self, device));
     }
     
@@ -94,7 +99,7 @@ bool USBHub::isAOAPDevice(const libusb_device_descriptor& deviceDescriptor) cons
 
 void USBHub::handleDevice(libusb_device* device)
 {
-    if(hotplugPromise_ == nullptr)
+    if(hotPlugPromise_ == nullptr)
     {
         return;
     }
@@ -115,8 +120,8 @@ void USBHub::handleDevice(libusb_device* device)
 
     if(this->isAOAPDevice(deviceDescriptor))
     {
-        hotplugPromise_->resolve(std::move(handle));
-        hotplugPromise_.reset();
+      hotPlugPromise_->resolve(std::move(handle));
+      hotPlugPromise_.reset();
     }
     else
     {

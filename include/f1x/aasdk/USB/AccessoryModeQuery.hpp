@@ -36,10 +36,8 @@ class AccessoryModeQuery: public IAccessoryModeQuery
 {
 public:
     AccessoryModeQuery(boost::asio::io_service& ioService, IUSBEndpoint::Pointer usbEndpoint);
-    void cancel() override;
-
-private:
     AccessoryModeQuery(const AccessoryModeQuery&) = delete;
+    void cancel() override;
 
 protected:
     boost::asio::io_service::strand strand_;

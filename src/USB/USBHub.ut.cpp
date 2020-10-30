@@ -63,7 +63,7 @@ protected:
     USBHubPromiseHandlerMock promiseHandlerMock_;
     IUSBHub::Promise::Pointer promise_;
     libusb_hotplug_callback_handle rawHotplugCallbacHandle_;
-    HotplugCallbackHandle hotplugCallbackHandle_;
+    HotPlugCallbackHandle hotplugCallbackHandle_;
     libusb_hotplug_callback_fn hotplugCallback_;
 
     static constexpr uint16_t cGoogleVendorId = 0x18D1;

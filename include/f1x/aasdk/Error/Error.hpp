@@ -33,7 +33,7 @@ class Error: public std::exception
 {
 public:
     Error();
-    Error(ErrorCode code, uint32_t nativeCode = 0);
+    explicit Error(ErrorCode code, uint32_t nativeCode = 0);
 
     ErrorCode getCode() const;
     uint32_t getNativeCode() const;

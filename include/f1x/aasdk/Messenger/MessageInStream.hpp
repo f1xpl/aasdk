@@ -35,6 +35,7 @@ class MessageInStream: public IMessageInStream, public std::enable_shared_from_t
 {
 public:
     MessageInStream(boost::asio::io_service& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor);
+    MessageInStream(const MessageInStream&) = delete;
 
     void startReceive(ReceivePromise::Pointer promise) override;
 
@@ -51,8 +52,6 @@ private:
     FrameType recentFrameType_;
     ReceivePromise::Pointer promise_;
     Message::Pointer message_;
-
-    MessageInStream(const MessageInStream&) = delete;
 };
 
 }

@@ -40,6 +40,8 @@ public:
     typedef std::function<void(ErrorArgumentType)> RejectHandler;
     typedef std::shared_ptr<Promise> Pointer;
 
+    Promise(const Promise&) = delete;
+
     static Pointer defer(boost::asio::io_service& ioService)
     {
         return std::make_shared<Promise>(ioService);
@@ -50,13 +52,13 @@ public:
         return std::make_shared<Promise>(strand);
     }
 
-    Promise(boost::asio::io_service& ioService)
+    explicit Promise(boost::asio::io_service& ioService)
         : ioContextWrapper_(ioService)
     {
 
     }
 
-    Promise(boost::asio::io_service::strand& strand)
+    explicit Promise(boost::asio::io_service::strand& strand)
         : ioContextWrapper_(strand)
     {
 
@@ -110,8 +112,6 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
-
-    Promise(const Promise&) = delete;
 };
 
 template<typename ErrorArgumentType>
@@ -123,6 +123,8 @@ public:
     typedef std::function<void(ErrorArgumentType)> RejectHandler;
     typedef std::shared_ptr<Promise> Pointer;
 
+    Promise(const Promise&) = delete;
+
     static Pointer defer(boost::asio::io_service& ioService)
     {
         return std::make_shared<Promise>(ioService);
@@ -133,13 +135,13 @@ public:
         return std::make_shared<Promise>(strand);
     }
 
-    Promise(boost::asio::io_service& ioService)
+    explicit Promise(boost::asio::io_service& ioService)
         : ioContextWrapper_(ioService)
     {
 
     }
 
-    Promise(boost::asio::io_service::strand& strand)
+    explicit Promise(boost::asio::io_service::strand& strand)
         : ioContextWrapper_(strand)
     {
 
@@ -193,8 +195,6 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
-
-    Promise(const Promise&) = delete;
 };
 
 template<>
@@ -204,6 +204,8 @@ public:
     typedef std::function<void()> ResolveHandler;
     typedef std::function<void()> RejectHandler;
     typedef std::shared_ptr<Promise> Pointer;
+
+    Promise(const Promise&) = delete;
 
     static Pointer defer(boost::asio::io_service& ioService)
     {
@@ -215,13 +217,13 @@ public:
         return std::make_shared<Promise>(strand);
     }
 
-    Promise(boost::asio::io_service& ioService)
+    explicit Promise(boost::asio::io_service& ioService)
         : ioContextWrapper_(ioService)
     {
 
     }
 
-    Promise(boost::asio::io_service::strand& strand)
+    explicit Promise(boost::asio::io_service::strand& strand)
         : ioContextWrapper_(strand)
     {
 
@@ -275,8 +277,6 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
-
-    Promise(const Promise&) = delete;
 };
 
 template<typename ResolveArgumentType>
@@ -288,6 +288,8 @@ public:
     typedef std::function<void(void)> RejectHandler;
     typedef std::shared_ptr<Promise> Pointer;
 
+    Promise(const Promise&) = delete;
+
     static Pointer defer(boost::asio::io_service& ioService)
     {
         return std::make_shared<Promise>(ioService);
@@ -298,13 +300,13 @@ public:
         return std::make_shared<Promise>(strand);
     }
 
-    Promise(boost::asio::io_service& ioService)
+    explicit Promise(boost::asio::io_service& ioService)
         : ioContextWrapper_(ioService)
     {
 
     }
 
-    Promise(boost::asio::io_service::strand& strand)
+    explicit Promise(boost::asio::io_service::strand& strand)
         : ioContextWrapper_(strand)
     {
 
@@ -358,8 +360,6 @@ private:
     RejectHandler rejectHandler_;
     IOContextWrapper ioContextWrapper_;
     std::mutex mutex_;
-
-    Promise(const Promise&) = delete;
 };
 
 

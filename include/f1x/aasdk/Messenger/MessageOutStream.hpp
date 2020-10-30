@@ -36,13 +36,14 @@ class MessageOutStream: public IMessageOutStream, public std::enable_shared_from
 {
 public:
     MessageOutStream(boost::asio::io_service& ioService, transport::ITransport::Pointer transport, ICryptor::Pointer cryptor);
+    MessageOutStream(const MessageOutStream&) = delete;
 
     void stream(Message::Pointer message, SendPromise::Pointer promise) override;
 
 private:
     using std::enable_shared_from_this<MessageOutStream>::shared_from_this;
 
-    void streamSplittedMessage();
+    void streamSplitMessage();
     common::Data compoundFrame(FrameType frameType, const common::DataConstBuffer& payloadBuffer);
     void streamEncryptedFrame(FrameType frameType, const common::DataConstBuffer& payloadBuffer);
     void streamPlainFrame(FrameType frameType, const common::DataConstBuffer& payloadBuffer);
@@ -58,8 +59,6 @@ private:
     SendPromise::Pointer promise_;
 
     static constexpr size_t cMaxFramePayloadSize = 0x4000;
-
-    MessageOutStream(const MessageOutStream&) = delete;
 };
 
 }

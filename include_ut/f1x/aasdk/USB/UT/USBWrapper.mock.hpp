@@ -67,7 +67,8 @@ public:
         uint16_t wLength));
     MOCK_METHOD2(getDeviceDescriptor, int(libusb_device *dev, libusb_device_descriptor &desc));
     MOCK_METHOD0(handleEvents, void());
-    MOCK_METHOD7(hotplugRegisterCallback, HotplugCallbackHandle(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
+    MOCK_METHOD7(hotPlugRegisterCallback,
+                 HotPlugCallbackHandle(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
                                                                 libusb_hotplug_callback_fn cb_fn, void *user_data));
     MOCK_METHOD1(allocTransfer, libusb_transfer*(int iso_packets));
 };

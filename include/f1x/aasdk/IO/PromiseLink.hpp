@@ -89,7 +89,7 @@ class PromiseLink<void, void>: public std::enable_shared_from_this<PromiseLink<v
 public:
     typedef std::shared_ptr<PromiseLink<void, void>> Pointer;
 
-    PromiseLink(typename Promise<void>::Pointer promise)
+    explicit PromiseLink(typename Promise<void>::Pointer promise)
         : promise_(std::move(promise))
     {
 

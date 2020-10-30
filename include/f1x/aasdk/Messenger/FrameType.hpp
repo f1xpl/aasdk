@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace f1x
 {
@@ -30,8 +30,8 @@ namespace messenger
 enum class FrameType
 {
     MIDDLE = 0,
-    FIRST = 1 << 0,
-    LAST = 1 << 1,
+    FIRST = 1u << 0u,
+    LAST = 1u << 1u,
     BULK = FIRST | LAST
 };
 

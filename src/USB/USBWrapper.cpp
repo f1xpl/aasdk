@@ -153,13 +153,13 @@ void USBWrapper::handleEvents()
     libusb_handle_events(usbContext_);
 }
 
-HotplugCallbackHandle USBWrapper::hotplugRegisterCallback(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
+HotPlugCallbackHandle USBWrapper::hotPlugRegisterCallback(libusb_hotplug_event events, libusb_hotplug_flag flags, int vendor_id, int product_id, int dev_class,
                                                           libusb_hotplug_callback_fn cb_fn, void *user_data)
 {
     libusb_hotplug_callback_handle raw_handle;
     libusb_hotplug_register_callback (usbContext_, events, flags, vendor_id, product_id, dev_class, cb_fn, user_data, &raw_handle);
 
-    HotplugCallbackHandle handle(&raw_handle, [this](auto raw_handle) { libusb_hotplug_deregister_callback(usbContext_, *raw_handle); });
+    HotPlugCallbackHandle handle(&raw_handle, [this](auto raw_handle) { libusb_hotplug_deregister_callback(usbContext_, *raw_handle); });
     return handle;
 }
 

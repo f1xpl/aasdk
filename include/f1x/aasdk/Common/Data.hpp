@@ -21,7 +21,7 @@
 #include <vector>
 #include <string>
 #include <cstddef>
-#include <stdint.h>
+#include <cstdint>
 
 namespace f1x
 {

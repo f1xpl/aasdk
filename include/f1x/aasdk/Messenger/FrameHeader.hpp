@@ -34,7 +34,7 @@ namespace messenger
 class FrameHeader
 {
 public:
-    FrameHeader(const common::DataConstBuffer& buffer);
+    explicit FrameHeader(const common::DataConstBuffer& buffer);
     FrameHeader(ChannelId channelId, FrameType frameType, EncryptionType encryptionType, MessageType messageType);
 
     ChannelId getChannelId() const;

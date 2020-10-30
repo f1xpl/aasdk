@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 static const uint16_t AASDK_MAJOR = 1;
 static const uint16_t AASDK_MINOR = 1;

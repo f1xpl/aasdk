@@ -37,6 +37,7 @@ public:
     AccessoryModeQueryChain(IUSBWrapper& usbWrapper,
                             boost::asio::io_service& ioService,
                             IAccessoryModeQueryFactory& queryFactory);
+    AccessoryModeQueryChain(const AccessoryModeQueryChain&) = delete;
 
     void start(DeviceHandle handle, Promise::Pointer promise) override;
     void cancel() override;
@@ -61,8 +62,6 @@ private:
     DeviceHandle handle_;    
     Promise::Pointer promise_;
     IAccessoryModeQuery::Pointer activeQuery_;
-
-    AccessoryModeQueryChain(const AccessoryModeQueryChain&) = delete;
 };
 
 }

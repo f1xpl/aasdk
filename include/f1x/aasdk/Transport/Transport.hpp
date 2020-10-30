@@ -34,13 +34,11 @@ namespace transport
 class Transport: public ITransport, public std::enable_shared_from_this<Transport>
 {
 public:
-    Transport(boost::asio::io_service& ioService);
+    explicit Transport(boost::asio::io_service& ioService);
+    Transport(const Transport&) = delete;
 
     void receive(size_t size, ReceivePromise::Pointer promise) override;
     void send(common::Data data, SendPromise::Pointer promise) override;
-
-private:
-    Transport(const Transport&) = delete;
 
 protected:
     typedef std::list<std::pair<size_t, ReceivePromise::Pointer>> ReceiveQueue;

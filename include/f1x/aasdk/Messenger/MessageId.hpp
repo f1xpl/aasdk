@@ -30,8 +30,8 @@ namespace messenger
 class MessageId
 {
 public:
-    MessageId(uint16_t id);
-    MessageId(const common::Data& data);
+    explicit MessageId(uint16_t id);
+    explicit MessageId(const common::Data& data);
 
     common::Data getData() const;
     static constexpr size_t getSizeOf() { return 2; }

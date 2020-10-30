@@ -40,11 +40,11 @@ public:
     {
         if(ioService_ != nullptr)
         {
-            ioService_->post(std::move(handler));
+            ioService_->post(std::forward<CompletionHandlerType>(handler));
         }
         else if(strand_ != nullptr)
         {
-            strand_->post(std::move(handler));
+            strand_->post(std::forward<CompletionHandlerType>(handler));
         }
     }
 
@@ -53,11 +53,11 @@ public:
     {
         if(ioService_ != nullptr)
         {
-            ioService_->dispatch(std::move(handler));
+            ioService_->dispatch(std::forward<CompletionHandlerType>(handler));
         }
         else if(strand_ != nullptr)
         {
-            strand_->dispatch(std::move(handler));
+            strand_->dispatch(std::forward<CompletionHandlerType>(handler));
         }
     }
 

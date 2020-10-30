@@ -36,6 +36,7 @@ class AOAPDevice: public IAOAPDevice
 public:
     AOAPDevice(IUSBWrapper& usbWrapper, boost::asio::io_service& ioService, DeviceHandle handle, const libusb_interface_descriptor* interfaceDescriptor);
     ~AOAPDevice() override;
+    AOAPDevice(const AOAPDevice&) = delete;
 
     IUSBEndpoint& getInEndpoint() override;
     IUSBEndpoint& getOutEndpoint() override;
@@ -56,8 +57,6 @@ private:
     static constexpr uint16_t cGoogleVendorId = 0x18D1;
     static constexpr uint16_t cAOAPId = 0x2D00;
     static constexpr uint16_t cAOAPWithAdbId = 0x2D01;
-
-    AOAPDevice(const AOAPDevice&) = delete;
 };
 
 }

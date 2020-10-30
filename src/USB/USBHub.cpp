@@ -125,9 +125,12 @@ void USBHub::handleDevice(libusb_device* device)
     }
     else
     {
+
+#ifdef ENABLE_VMWARE_WORKAROUND
         ////////// Workaround for VMware
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         //////////
+#endif
 
         queryChainQueue_.emplace_back(queryChainFactory_.create());
 

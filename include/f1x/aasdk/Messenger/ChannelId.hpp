@@ -41,6 +41,8 @@ enum class ChannelId
     NONE = 255
 };
 
+std::string channelIdToString(ChannelId channelId);
+
 }
 }
 }

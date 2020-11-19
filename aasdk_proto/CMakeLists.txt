@@ -10,7 +10,9 @@ add_library(aasdk_proto SHARED ${proto_headers} ${proto_sources})
 
 target_link_libraries(aasdk_proto ${PROTOBUF_LIBRARIES})
 
-set_target_properties(aasdk_proto PROPERTIES PUBLIC_HEADER "${proto_headers}")
+set_target_properties(aasdk_proto PROPERTIES
+    VERSION "${PROJECT_VERSION}"
+    PUBLIC_HEADER "${proto_headers}")
 
 install(TARGETS aasdk_proto
     LIBRARY DESTINATION lib

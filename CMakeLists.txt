@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.5.1)
-project(aasdk LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.10.6)
+project(aasdk VERSION 0.1.0 LANGUAGES CXX)
 
 option(AASDK_TEST "Build Unit Test Cases" OFF)
 option(AASDK_CODE_COVERAGE "Build with Code Coverage" OFF)
@@ -69,7 +69,10 @@ target_link_libraries(aasdk
                         ${LIBUSB_1_LIBRARIES}
                         ${WINSOCK2_LIBRARIES})
 
-install(TARGETS aasdk LIBRARY DESTINATION lib)
+set_target_properties(aasdk PROPERTIES
+    VERSION "${PROJECT_VERSION}")
+
+install(TARGETS aasdk LIBRARY ARCHIVE DESTINATION lib)
 install(DIRECTORY include/f1x/aasdk DESTINATION include/f1x)
 
 if(AASDK_TEST)

@@ -50,7 +50,7 @@ void USBHub::start(Promise::Pointer promise)
         if(self_ == nullptr)
         {
             self_ = this->shared_from_this();
-            hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
+            hotplugHandle_ = usbWrapper_.hotplugRegisterCallback(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED, (libusb_hotplug_flag) LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
                                                                  LIBUSB_HOTPLUG_MATCH_ANY, reinterpret_cast<libusb_hotplug_callback_fn>(&USBHub::hotplugEventsHandler), reinterpret_cast<void*>(this));
         }
     });
